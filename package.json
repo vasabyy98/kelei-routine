@@ -1,0 +1,22 @@
+{
+  "name": "kelei-routine",
+  "version": "1.0.0",
+  "description": "Gym track web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "author": "Roman Vasjkov",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "snowpack": "^3.8.8"
+  }
+}
