@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { getGoal, setGoal, updateGoal, deleteGoal } = require("../controllers/controller");
+const {
+  getWorkoutPlan,
+  setWorkoutPlan,
+  updateWorkoutPlan,
+  deleteWorkoutPlan,
+} = require("../controllers/controller");
 
-router.route("/").get(getGoal).post(setGoal);
-router.route("/:id").delete(deleteGoal).put(updateGoal);
+router.route("/").get(getWorkoutPlan).post(setWorkoutPlan);
+router.route("/:id").delete(deleteWorkoutPlan).put(updateWorkoutPlan);
 
 module.exports = router;
