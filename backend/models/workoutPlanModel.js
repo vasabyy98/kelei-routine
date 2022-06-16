@@ -6,8 +6,16 @@ const workoutPlanSchema = mongoose.Schema({
     required: true,
     ref: "User",
   },
-  text: {
+  name: {
     type: String,
+    required: true,
+  },
+  exercises: {
+    type: Array,
+    required: true,
+  },
+  weights: {
+    type: Array,
     required: true,
   },
 });

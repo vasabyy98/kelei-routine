@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const workoutPlan = require("../models/workoutPlan");
+const workoutPlan = require("../models/workoutPlanModel");
 const User = require("../models/userModel");
 
 // @desc get workout plan
@@ -15,13 +15,15 @@ const getWorkoutPlan = asyncHandler(async (req, res) => {
 // @route PUT /api/goals
 // @access Private
 const setWorkoutPlan = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
+  if (!req.body.exercises && !req.body.weights) {
     res.status(400);
     throw new Error("Please add a new textfield");
   }
 
   const plan = await workoutPlan.create({
-    text: req.body.text,
+    name: req.body.name,
+    exercises: req.body.exercises,
+    weights: req.body.weights,
     user: req.user.id,
   });
 

@@ -1,0 +1,53 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --bg-color: #f2f2f2;
+  --text-color: #141414;
+}
+html {
+  font-size: 20px;
+}
+body {
+  font-family: "PP Neue Montreal";
+  font-size: 1rem;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+.header {
+  position: absolute;
+  left: 50%;
+}
+
+@media (min-width: 1200px) {
+  body {
+    background: #141414;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    width: 470px;
+    border-radius: 2.5rem;
+  }
+  .form__group {
+    width: 80% !important;
+  }
+}
+@media (min-width: 700px) {
+  .form__group {
+    width: 60%;
+  }
+}
+@media (min-width: 900px) {
+  .form__group {
+    width: 50%;
+  }
+}
