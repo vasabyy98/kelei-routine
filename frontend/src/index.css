@@ -11,16 +11,29 @@ html {
   font-size: 20px;
 }
 body {
-  font-family: "PP Neue Montreal";
+  font-family: "Neue Montreal";
   font-size: 1rem;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+input {
+  all: unset;
+}
+button {
+  all: unset;
+}
+button:hover {
+  cursor: pointer;
+  user-select: none;
+}
+a {
+  all: unset;
 }
 .container {
   background-color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
+  padding: 0 2rem;
 }
 .header {
   position: absolute;
@@ -38,7 +51,7 @@ body {
     border-radius: 2.5rem;
   }
   .form__group {
-    width: 80% !important;
+    width: 100%;
   }
 }
 @media (min-width: 700px) {

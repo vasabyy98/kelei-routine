@@ -1,0 +1,36 @@
+@import url(./mediaQueries.module.css);
+
+.intro {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.content__wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.intro__header {
+  font-family: "Formula Condensed";
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.intro__header__line {
+  height: 5.25rem;
+  text-align: center;
+}
+.intro__subheading {
+  max-width: 24ch;
+  text-align: center;
+  line-height: 1.1;
+}
+.bigred {
+  width: 200px;
+  height: 200px;
+  background: red;
+}

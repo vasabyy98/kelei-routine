@@ -1,49 +1,61 @@
-// import "../css/register.css";
+import { Link } from "react-router-dom";
+import styles from "../css/signIn.module.css";
+import btnStyles from "../css/buttons.module.css";
 
 function Login() {
   return (
     <>
-      <section className="form">
-        <div className="form__wrapper">
-          <div className="form__group">
-            <header className="form__heading">
-              <span className="heading">email adress</span>
+      <section className={styles.content__wrapper}>
+        <div className={styles.form}>
+          <div className={styles.form__group}>
+            <header className={styles.form__heading}>
+              <span className={styles.heading}>email adress</span>
             </header>
             <form>
               <input
                 type="email"
-                className="form__control"
+                className={styles.form__control}
                 id="email"
                 name="email"
                 placeholder="type your email here..."
               />
             </form>
           </div>
-          <div className="form__group">
-            <header className="form__heading">
-              <span className="heading">password</span>
+          <div className={styles.form__group}>
+            <header className={styles.form__heading}>
+              <span className={styles.heading}>password</span>
             </header>
             <form>
               <input
                 type="password"
-                className="form__control"
+                className={styles.form__control}
                 id="password"
                 name="password"
                 placeholder="type your password here..."
               />
             </form>
           </div>
-          <div className="form__btns">
-            <button type="submit" className="btn primary-btn">
+          <div className={btnStyles.form__btns}>
+            <Link to="/">
+              <button
+                type="submit"
+                className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
+              >
+                <span>←</span>
+              </button>
+            </Link>
+            <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
               <span>Log in</span>
             </button>
           </div>
         </div>
-        <div className="form__btns login-form absolute">
+        <div className={`${btnStyles.form__btns} ${btnStyles.loginForm} ${btnStyles.absolute}`}>
           <span>Don't have an account?</span>
-          <button type="submit" className="btn primary-btn">
-            <span>Create account</span>
-          </button>
+          <Link to="/register">
+            <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
+              <span>Create account</span>
+            </button>
+          </Link>
         </div>
       </section>
     </>
