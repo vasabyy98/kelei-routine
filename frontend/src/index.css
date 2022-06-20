@@ -1,3 +1,16 @@
+@font-face {
+  font-family: "NeueMontreal";
+  src: url("./fonts/NeueMontreal-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "FormulaCondensedRegular";
+  src: url("./fonts/FormulaCondensed-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "FormulaCondensedBold";
+  src: url("./fonts/FormulaCondensed-Bold.woff") format("woff");
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -6,13 +19,18 @@
 :root {
   --bg-color: #f2f2f2;
   --text-color: #141414;
+  --gap-children: 1.5rem;
+  --padding: 3vh;
 }
 html {
   font-size: 20px;
+  min-height: -webkit-fill-available;
+  background: #f2f2f2;
 }
 body {
-  font-family: "Neue Montreal";
+  font-family: NeueMontreal;
   font-size: 1rem;
+  line-height: 1.2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -33,13 +51,17 @@ a {
   background-color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
-  padding: 0 2rem;
+  padding: 0 var(--padding);
+  overflow: hidden;
 }
-.header {
-  position: absolute;
-  left: 50%;
+@media only screen and (hover: none) and (pointer: coarse) {
+  .container {
+    min-height: -webkit-fill-available;
+  }
+  .content__wrapper {
+    min-height: -webkit-fill-available;
+  }
 }
-
 @media (min-width: 1200px) {
   body {
     background: #141414;
@@ -48,10 +70,17 @@ a {
   }
   .container {
     width: 470px;
+    min-height: 100vh;
     border-radius: 2.5rem;
+  }
+  .content__wrapper {
+    min-height: 100vh;
   }
   .form__group {
     width: 100%;
+  }
+  .fixed {
+    width: 470px;
   }
 }
 @media (min-width: 700px) {

@@ -13,9 +13,8 @@
   align-items: center;
 }
 .intro__header {
-  font-family: "Formula Condensed";
+  font-family: FormulaCondensedBold;
   font-size: 6rem;
-  font-weight: 700;
   line-height: 1.05;
 }
 .intro__header__line {
@@ -25,10 +24,17 @@
 .intro__subheading {
   max-width: 24ch;
   text-align: center;
-  line-height: 1.1;
 }
 .bigred {
   width: 200px;
   height: 200px;
   background: red;
+}
+@media only screen and (hover: none) and (pointer: coarse) {
+  .container {
+    min-height: -webkit-fill-available;
+  }
+  .content__wrapper {
+    min-height: -webkit-fill-available;
+  }
 }

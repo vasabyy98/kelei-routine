@@ -21,9 +21,11 @@ function Home() {
           </p>
         </div>
         <div className={`${btnStyles.form__btns} ${btnStyles.absolute}`}>
-          <button type="submit" className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
-            <span>learn more</span>
-          </button>
+          <Link to="/about">
+            <button type="submit" className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
+              <span>learn more</span>
+            </button>
+          </Link>
           <Link to="/login">
             <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
               <span>get started</span>

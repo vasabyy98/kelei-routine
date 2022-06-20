@@ -1,10 +1,8 @@
-:root {
-  --gap-children: 1.5rem;
-}
 .content__wrapper {
   width: 100%;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -27,9 +25,8 @@
   margin-bottom: 0.5rem;
 }
 .heading {
-  font-family: "Formula Condensed";
+  font-family: FormulaCondensedBold;
   font-size: 2.5rem;
-  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -38,7 +35,7 @@
   padding: 0.5rem 0;
   border-radius: 2.5rem;
   line-height: 1;
-  border: 1px solid #141414;
+  border: 1px solid var(--text-color);
   text-align: center;
   font-size: 0.8rem;
 }
@@ -55,5 +52,13 @@
 @media (min-width: 900px) {
   .form__group {
     width: 450px;
+  }
+}
+@media only screen and (hover: none) and (pointer: coarse) {
+  .container {
+    min-height: -webkit-fill-available;
+  }
+  .content__wrapper {
+    min-height: -webkit-fill-available;
   }
 }

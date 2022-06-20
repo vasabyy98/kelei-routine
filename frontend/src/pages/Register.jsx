@@ -60,21 +60,21 @@ function Register() {
               placeholder="type your password here..."
             />
           </div>
-        </form>
-        <div className={`${btnStyles.form__btns} ${btnStyles.absolute}`}>
-          <Link to="/login">
-            <button
-              type="submit"
-              className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
-            >
-              <span>←</span>
-            </button>
-          </Link>
+          <div className={`${btnStyles.form__btns}`}>
+            <Link to="/login">
+              <button
+                type="submit"
+                className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
+              >
+                <span>←</span>
+              </button>
+            </Link>
 
-          <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-            <span>Create account</span>
-          </button>
-        </div>
+            <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
+              <span>Create account</span>
+            </button>
+          </div>
+        </form>
       </section>
     </>
   );
