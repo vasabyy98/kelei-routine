@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Link } from "react-router-dom";
 import styles from "../css/about.module.css";
 import btnStyles from "../css/buttons.module.css";
@@ -23,9 +25,11 @@ function About() {
             lifters and less important for advanced lifters, as such my recommendations will reflect
             this. In general I recommend the following:
           </p>
-          <p>Beginner = Full body routine</p>
-          <p>Intermediate = 2 day split (upper/lower etc)</p>
-          <p>Advanced = 3 day split (push/pull/legs etc)</p>
+          <p className={styles.about__paragraph}>
+            <span>Beginner = Full body routine</span>
+            <span>Intermediate = 2 day split (upper/lower)</span>
+            <span>Advanced = 3 day split (push/pull/legs)</span>
+          </p>
           <p>
             In regards to training/rest days I prefer to keep things flexible and not allocate
             specific days (Monday for example) to a split, for example a beginner should perform a

@@ -1,5 +1,12 @@
+import React from "react";
+
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+// import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+
+import { register, reset } from "../features/auth/authSlice";
 
 import styles from "../css/signIn.module.css";
 import btnStyles from "../css/buttons.module.css";
@@ -13,6 +20,23 @@ function Register() {
 
   const { name, email, password } = formData;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isError) {
+      // toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -20,10 +44,22 @@ function Register() {
     }));
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const userData = {
+      name,
+      email,
+      password,
+    };
+
+    dispatch(register(userData));
+  };
+
   return (
     <>
       <section className={styles.content__wrapper}>
-        <form className={styles.form}>
+        <form onSubmit={onSubmit} className={styles.form}>
           <div className={styles.form__group}>
             <header className={styles.form__heading}>
               <span className={styles.heading}>name</span>
@@ -49,7 +85,9 @@ function Register() {
               className={styles.form__control}
               id="email"
               name="email"
+              value={email}
               placeholder="type your email here..."
+              onChange={onChange}
             />
           </div>
           <div className={styles.form__group}>
@@ -62,7 +100,9 @@ function Register() {
               className={styles.form__control}
               id="password"
               name="password"
+              value={password}
               placeholder="type your password here..."
+              onChange={onChange}
             />
           </div>
           <div className={`${btnStyles.form__btns}`}>

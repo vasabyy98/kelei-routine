@@ -30,3 +30,7 @@
   list-style: symbols(-);
   margin-left: var(--padding);
 }
+.about__paragraph {
+  display: flex;
+  flex-direction: column;
+}

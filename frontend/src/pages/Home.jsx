@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Link } from "react-router-dom";
 import styles from "../css/home.module.css";
 import btnStyles from "../css/buttons.module.css";
