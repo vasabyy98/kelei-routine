@@ -1,8 +1,27 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../css/signIn.module.css";
 import btnStyles from "../css/buttons.module.css";
 
 function Login() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <section className={styles.content__wrapper}>
@@ -17,6 +36,8 @@ function Login() {
                 className={styles.form__control}
                 id="email"
                 name="email"
+                value={email}
+                onChange={onChange}
                 placeholder="type your email here..."
               />
             </form>
@@ -30,6 +51,8 @@ function Login() {
                 type="password"
                 className={styles.form__control}
                 id="password"
+                value={password}
+                onChange={onChange}
                 name="password"
                 placeholder="type your password here..."
               />
