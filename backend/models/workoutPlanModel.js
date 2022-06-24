@@ -10,14 +10,22 @@ const workoutPlanSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  exercises: {
-    type: Array,
-    required: true,
-  },
-  weights: {
-    type: Array,
-    required: true,
-  },
+  exercises: [
+    {
+      _id: false,
+      exercise: String,
+      weight: String,
+      stats: Object,
+    },
+  ],
+  // exercises: {
+  //   type: Array,
+  //   required: true,
+  // },
+  // weights: {
+  //   type: Array,
+  //   required: true,
+  // },
 });
 
 module.exports = mongoose.model("workoutPlan", workoutPlanSchema);

@@ -111,15 +111,13 @@ function About() {
             might thrive on even higher volume. You can double those numbers for calf exercises.
           </p>
           <p>My general nutrition advice is as follows:</p>
-          <p>
-            <ul>
-              <li>Most of your protein should come from meat, eggs and dairy products.</li>
-              <li>Most of your carbs should come from complex sources.</li>
-              <li>
-                Don't be afraid of fat, you need ample amounts saturated fat, cholesterol and
-                arachidonic acid in your diet, full-fat dairy products and eggs are great sources.
-              </li>
-            </ul>
+          <p className={styles.about__paragraph}>
+            <span>Most of your protein should come from meat, eggs and dairy products.</span>
+            <span> Most of your carbs should come from complex sources.</span>
+            <span>
+              Don't be afraid of fat, you need ample amounts saturated fat, cholesterol and
+              arachidonic acid in your diet, full-fat dairy products and eggs are great sources.
+            </span>
           </p>
           <p>
             In general I recommend a 3/1 week loading/deloading cycle, during a deload week you
@@ -128,10 +126,13 @@ function About() {
             recommend that you still do.
           </p>
           <p>As for rough experience guides I'd say something like:</p>
-          <p>
-            Intermediate = 1 x BW x 10 reps bench press, 1.25 x BW x 10 reps front squat, 1.5 x BW x
-            10 reps Romanian deadlift Advanced = 1.25 x BW x 10 reps bench press, 1.5 x BW x 10 reps
-            front squat, 1.75 x BW x 10 reps Romanian deadlift
+          <p className={styles.about__paragraph}>
+            <span>Intermediate = 1 x BW x 10 reps bench press</span>
+            <span> 1.25 x BW x 10 reps front squat</span>
+            <span>1.5 x BW x 10 reps Romanian deadlift</span>
+            <span>Advanced = 1.25 x BW x 10 reps benchpress</span>
+            <span>1.5 x BW x 10 reps front squat</span>
+            <span>1.75 x BW x 10 reps Romanian deadlift</span>
           </p>
         </div>
         <div className={`${btnStyles.form__btns} ${btnStyles.fixed}`}>

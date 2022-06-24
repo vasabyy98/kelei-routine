@@ -1,0 +1,36 @@
+.intro {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.content__wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.intro__header {
+  font-family: FormulaCondensedBold;
+  font-size: 6rem;
+  line-height: 1.05;
+}
+.intro__header__line {
+  height: 5.25rem;
+  text-align: center;
+}
+.intro__subheading {
+  max-width: 24ch;
+  text-align: center;
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+  .container {
+    min-height: -webkit-fill-available;
+  }
+  .content__wrapper {
+    min-height: -webkit-fill-available;
+  }
+}

@@ -15,15 +15,20 @@ const getWorkoutPlan = asyncHandler(async (req, res) => {
 // @route PUT /api/goals
 // @access Private
 const setWorkoutPlan = asyncHandler(async (req, res) => {
-  if (!req.body.exercises && !req.body.weights) {
+  if (!req.body.name) {
     res.status(400);
     throw new Error("Please add a new textfield");
   }
 
   const plan = await workoutPlan.create({
     name: req.body.name,
-    exercises: req.body.exercises,
-    weights: req.body.weights,
+    exercises: [
+      {
+        exercise: req.body.exercise,
+        weight: req.body.weight,
+      },
+    ],
+
     user: req.user.id,
   });
 
@@ -41,21 +46,42 @@ const updateWorkoutPlan = asyncHandler(async (req, res) => {
     throw new Error("Plan not found.");
   }
 
-  const user = await User.findById(req.user.id);
-
   // check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   // make sure the logged in user matches the plan user
-  if (plan.user.toString() !== user.id) {
+  if (plan.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
 
-  const updatedPlan = await workoutPlan.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  let objExercises = [
+    {
+      exercise: "bench press",
+      weight: "90",
+      stats: {
+        initialWeight: "80",
+        avgRest: "30",
+      },
+    },
+    {
+      exercise: "dumbbell press",
+      weight: "30",
+      stats: {
+        initialWeight: "22",
+        avgRest: "35",
+      },
+    },
+  ];
+
+  const updatedPlan = await workoutPlan.findByIdAndUpdate(
+    req.params.id,
+    { exercises: objExercises },
+    { new: true }
+  );
 
   res.status(200).json({ updatedPlan });
 });
@@ -71,16 +97,14 @@ const deleteWorkoutPlan = asyncHandler(async (req, res) => {
     throw new Error("Plan not found.");
   }
 
-  const user = await User.findById(req.user.id);
-
   // check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   // make sure the logged in user matches the plan user
-  if (plan.user.toString() !== user.id) {
+  if (plan.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }

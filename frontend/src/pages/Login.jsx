@@ -28,7 +28,7 @@ function Login() {
     }
 
     if (isSuccess || user) {
-      navigate("/");
+      navigate("/home");
     }
 
     dispatch(reset());

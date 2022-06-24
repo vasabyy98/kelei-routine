@@ -1,34 +1,42 @@
-.intro {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
 .content__wrapper {
   width: 100%;
   min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  gap: var(--gap-children);
+}
+.home__header {
+  width: 100%;
+  margin-top: var(--padding);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.1rem;
 }
-.intro__header {
+.home__left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1rem;
+}
+.home__greeting {
   font-family: FormulaCondensedBold;
-  font-size: 6rem;
-  line-height: 1.05;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  height: 2.5rem;
 }
-.intro__header__line {
-  height: 5.25rem;
+.home__username {
+  text-transform: uppercase;
+}
+.home__main {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-children);
+}
+.home__p {
   text-align: center;
-}
-.intro__subheading {
-  max-width: 24ch;
-  text-align: center;
-}
-.bigred {
-  width: 200px;
-  height: 200px;
-  background: red;
+  max-width: 25ch;
 }
 @media only screen and (hover: none) and (pointer: coarse) {
   .container {

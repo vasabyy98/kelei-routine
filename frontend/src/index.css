@@ -39,13 +39,25 @@ input {
 }
 button {
   all: unset;
+  transition: transform 0.25s ease-out;
 }
 button:hover {
   cursor: pointer;
   user-select: none;
 }
+button:active {
+  transform: scale(0.95);
+}
 a {
   all: unset;
+}
+::selection {
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+.header {
+  position: absolute;
+  left: 50%;
 }
 .container {
   background-color: var(--bg-color);
@@ -53,6 +65,14 @@ a {
   min-height: 100vh;
   padding: 0 var(--padding);
   overflow: hidden;
+}
+.content__wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 @media only screen and (hover: none) and (pointer: coarse) {
   .container {
