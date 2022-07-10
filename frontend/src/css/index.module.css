@@ -5,13 +5,6 @@
   align-items: center;
   gap: 1.5rem;
 }
-.content__wrapper {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .intro__header {
   font-family: FormulaCondensedBold;
   font-size: 6rem;

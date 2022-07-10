@@ -8,7 +8,7 @@ const User = require("../models/userModel");
 const getWorkoutPlan = asyncHandler(async (req, res) => {
   const plan = await workoutPlan.find({ user: req.user.id });
 
-  res.status(200).json({ plan });
+  res.status(200).json(plan);
 });
 
 // @desc set workout plan
@@ -22,17 +22,15 @@ const setWorkoutPlan = asyncHandler(async (req, res) => {
 
   const plan = await workoutPlan.create({
     name: req.body.name,
-    exercises: [
-      {
-        exercise: req.body.exercise,
-        weight: req.body.weight,
-      },
-    ],
-
+    routine: req.body.routine,
+    volume: req.body.volume,
+    exercises: req.body.exercises,
+    exercises2: req.body.exercises2,
+    exercises3: req.body.exercises3,
     user: req.user.id,
   });
 
-  res.status(200).json({ plan });
+  res.status(200).json(plan);
 });
 
 // @desc update workout plan
@@ -58,32 +56,13 @@ const updateWorkoutPlan = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 
-  let objExercises = [
-    {
-      exercise: "bench press",
-      weight: "90",
-      stats: {
-        initialWeight: "80",
-        avgRest: "30",
-      },
-    },
-    {
-      exercise: "dumbbell press",
-      weight: "30",
-      stats: {
-        initialWeight: "22",
-        avgRest: "35",
-      },
-    },
-  ];
-
   const updatedPlan = await workoutPlan.findByIdAndUpdate(
     req.params.id,
-    { exercises: objExercises },
+    { exercises: objExercises, name: req.body.name },
     { new: true }
   );
 
-  res.status(200).json({ updatedPlan });
+  res.status(200).json(updatedPlan);
 });
 
 // @desc delete workout plan

@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { login, reset } from "../features/auth/authSlice";
+
+import layout from "../css/layout.module.css";
 import styles from "../css/signIn.module.css";
 import btnStyles from "../css/buttons.module.css";
-
-import { login, reset } from "../features/auth/authSlice";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -55,57 +56,63 @@ function Login() {
   return (
     <>
       <section className={styles.content__wrapper}>
-        <form onSubmit={onSubmit} className={styles.form}>
-          <div className={styles.form__group}>
-            <header className={styles.form__heading}>
-              <span className={styles.heading}>email adress</span>
-            </header>
-            <input
-              type="email"
-              className={styles.form__control}
-              id="email"
-              name="email"
-              value={email}
-              onChange={onChange}
-              placeholder="type your email here..."
-            />
-          </div>
-          <div className={styles.form__group}>
-            <header className={styles.form__heading}>
-              <span className={styles.heading}>password</span>
-            </header>
-            <input
-              type="password"
-              className={styles.form__control}
-              id="password"
-              value={password}
-              onChange={onChange}
-              name="password"
-              placeholder="type your password here..."
-            />
-          </div>
-          <div className={btnStyles.form__btns}>
-            <Link to="/">
-              <button
-                type="submit"
-                className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
-              >
-                <span>←</span>
-              </button>
-            </Link>
-            <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-              <span>Log in</span>
-            </button>
-          </div>
-          <div className={`${btnStyles.form__btns} ${btnStyles.loginForm} ${btnStyles.absolute}`}>
-            <span>Don't have an account?</span>
-            <Link to="/register">
+        <div className={layout.flex__layout}>
+          <form onSubmit={onSubmit} className={styles.form}>
+            <div className={styles.form__group}>
+              <header>
+                <div className={styles.form__heading}>
+                  <span>email adress</span>
+                </div>
+              </header>
+              <input
+                type="email"
+                className={styles.form__control}
+                id="email"
+                name="email"
+                value={email}
+                onChange={onChange}
+                placeholder="type your email here..."
+              />
+            </div>
+            <div className={styles.form__group}>
+              <header>
+                <div className={styles.form__heading}>
+                  <span>password</span>
+                </div>
+              </header>
+              <input
+                type="password"
+                className={styles.form__control}
+                id="password"
+                value={password}
+                onChange={onChange}
+                name="password"
+                placeholder="type your password here..."
+              />
+            </div>
+            <div className={btnStyles.btns__row}>
+              <Link to="/">
+                <button
+                  type="submit"
+                  className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
+                >
+                  <span>←</span>
+                </button>
+              </Link>
               <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-                <span>Create account</span>
+                <span>Log in</span>
               </button>
-            </Link>
-          </div>
-        </form>
+            </div>
+            <div className={`${btnStyles.btns__col} ${btnStyles.loginForm} ${btnStyles.absolute}`}>
+              <span>Don't have an account?</span>
+              <Link to="/register">
+                <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
+                  <span>Create account</span>
+                </button>
+              </Link>
+            </div>
+          </form>
+        </div>
       </section>
     </>
   );

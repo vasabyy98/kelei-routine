@@ -1,43 +1,45 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import styles from "../css/signIn.module.css";
-import btnStyles from "../css/buttons.module.css";
+import ChooseRoutine from "../components/ChooseRoutine";
+import RoutineVolume from "../components/RoutineVolume";
+import AddExercises from "../components/AddExercises";
 
-function CreatePlan() {
+export default function CreatePlan() {
+  const [routineType, setRoutineType] = useState();
+  const [routineVolume, setRoutineVolume] = useState();
+
+  const [showVolume, setShowVolume] = useState();
+  const volumeSection = useRef(null);
+
+  const [showAddExercises, setShowAddExercises] = useState();
+  const addExercisesSection = useRef(null);
+
+  const [showPreview, setShowPreview] = useState();
+  const previewSection = useRef(null);
   return (
     <>
-      <section className={styles.content__wrapper}>
-        <form className={styles.form}>
-          <header className={styles.form__heading}>
-            <span>add your upper split exercises</span>
-          </header>
-          <div className={styles.form__group}>
-            <input
-              type="text"
-              className={styles.form__control}
-              id="name"
-              name="name"
-              placeholder="type exercise name here..."
-            />
-          </div>
-          <div className={styles.form__group}>
-            <input
-              type="text"
-              className={styles.form__control}
-              id="name"
-              name="name"
-              placeholder="type exercise name here..."
-            />
-          </div>
-          <div className={`${btnStyles.form__btns}`}>
-            <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-              <span>Create account</span>
-            </button>
-          </div>
-        </form>
-      </section>
+      <ChooseRoutine
+        setRoutineType={setRoutineType}
+        routineType={routineType}
+        setShowVolume={setShowVolume}
+      />
+      <RoutineVolume
+        setRoutineVolume={setRoutineVolume}
+        volumeSection={volumeSection}
+        showVolume={showVolume}
+        setShowVolume={setShowVolume}
+        setShowAddExercises={setShowAddExercises}
+      />
+      <AddExercises
+        addExercisesSection={addExercisesSection}
+        showAddExercises={showAddExercises}
+        setShowAddExercises={setShowAddExercises}
+        routineType={routineType}
+        routineVolume={routineVolume}
+        setShowPreview={setShowPreview}
+        showPreview={showPreview}
+        previewSection={previewSection}
+      />
     </>
   );
 }
-
-export default CreatePlan;

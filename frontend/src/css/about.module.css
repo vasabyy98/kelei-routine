@@ -1,12 +1,3 @@
-.content__wrapper {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--gap-children);
-}
 .about__header {
   font-family: FormulaCondensedBold;
   text-transform: uppercase;

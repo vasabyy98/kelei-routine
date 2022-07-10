@@ -10,7 +10,31 @@ const workoutPlanSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  routine: {
+    type: String,
+    required: true,
+  },
+  volume: {
+    type: String,
+    required: true,
+  },
   exercises: [
+    {
+      _id: false,
+      exercise: String,
+      weight: String,
+      stats: Object,
+    },
+  ],
+  exercises2: [
+    {
+      _id: false,
+      exercise: String,
+      weight: String,
+      stats: Object,
+    },
+  ],
+  exercises3: [
     {
       _id: false,
       exercise: String,
