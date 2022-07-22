@@ -1,3 +1,15 @@
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.4) 0%, var(--bg-color) 71.87%),
+    url(../images/indexBg.jpg);
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
 .intro {
   height: 100%;
   display: flex;
@@ -15,8 +27,9 @@
   text-align: center;
 }
 .intro__subheading {
-  max-width: 24ch;
+  max-width: 28ch;
   text-align: center;
+  color: var(--body-text-color);
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {

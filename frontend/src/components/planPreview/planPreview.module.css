@@ -1,0 +1,33 @@
+.preview {
+  justify-self: normal;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-children);
+}
+.preview__item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: -1px;
+}
+.spacerTop {
+  position: absolute;
+  height: 1px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+}
+.spacerBottom {
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+}

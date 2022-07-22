@@ -8,6 +8,7 @@ import { getPlans, resetPlans } from "../features/plans/planSlice";
 import layout from "../css/layout.module.css";
 import styles from "../css/home.module.css";
 import btnStyles from "../css/buttons.module.css";
+import image from "../css/backgroundImage.module.css";
 
 function Home() {
   const navigate = useNavigate();
@@ -40,61 +41,58 @@ function Home() {
 
   return (
     <>
-      <section className={layout.content__wrapper}>
-        <div className={layout.twoRow__grid__layout__reversed}>
-          <header className={styles.home__header}>
-            <div className={styles.home__left}>
-              <div className={styles.home__greeting}>
-                <span>hello</span>
+      <div className={image.backgroundImageHome}></div>
+      {isLoading !== true && (
+        <section className={layout.content__wrapper}>
+          <div className={layout.threeRow__grid__layout}>
+            <header className={styles.home__header}>
+              <div className={styles.home__left}>
+                <span className={styles.home__username}>{user && user.name}</span>
               </div>
-              <span className={styles.home__username}>{user && user.name}</span>
-            </div>
-            <div className={btnStyles.form__btns}>
-              <button onClick={onLogout} className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
-                <span>log out</span>
-              </button>
-            </div>
-          </header>
-          {isLoading !== true && (
+              <div className={styles.home__right}>
+                <span onClick={onLogout} id={styles.logOut}>
+                  log out
+                </span>
+              </div>
+              <div className={styles.spacer}></div>
+            </header>
+
             <div className={styles.home__main}>
               <p className={styles.home__p}>
-                Are you ready to make new PRs? Choose your workout plan and start crushing it!
+                Are you r<span className={styles.alternative}>e</span>ady to make
+                <span className={styles.underline}>
+                  <span className={styles.alternative}>n</span>ew PRs?
+                </span>
+                C<span className={styles.alternative}>h</span>oose your wo
+                <span className={styles.alternative}>r</span>kout plan and{" "}
+                <span className={styles.underline}>
+                  start crush
+                  <span className={styles.alternative}>i</span>ng it!
+                </span>
               </p>
-              <svg
-                id={styles.home__arrow}
-                width="58"
-                height="75"
-                viewBox="0 0 58 75"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M57.6407 47.74L55.4147 45.514L30.7167 68.198V0.993998H27.3247V68.198L2.6267 45.514L0.400703 47.74L29.0207 74.24L57.6407 47.74Z"
-                  fill="#141414"
-                />
-              </svg>
               {plans.length > 0 ? (
                 <div className={styles.home__plans}>
                   {plans.map((el, index) => (
                     <div className={styles.home__plan} key={el.name + index}>
-                      <div className={styles.home__planInner}>{el.name}</div>
+                      <div className={styles.home__planInner}>
+                        <span>{el.name}</span>
+                        <span className={styles.routine}>{el.routine}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
               ) : (
                 <span style={{ display: "none" }}></span>
               )}
-              <div className={`${btnStyles.form__btns} ${styles.margin__bottom}`}>
-                <Link to={"/create-plan"}>
-                  <button className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-                    <span>create plan</span>
-                  </button>
-                </Link>
-              </div>
             </div>
-          )}
-        </div>
-      </section>
+            <div className={btnStyles.btns__row}>
+              <Link className={`${btnStyles.btn} ${btnStyles.primaryBtn}`} to="/create-plan">
+                <span>Create plan</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }

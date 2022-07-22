@@ -9,6 +9,7 @@ import { login, reset } from "../features/auth/authSlice";
 import layout from "../css/layout.module.css";
 import styles from "../css/signIn.module.css";
 import btnStyles from "../css/buttons.module.css";
+import image from "../css/backgroundImage.module.css";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -55,15 +56,24 @@ function Login() {
 
   return (
     <>
+      <div className={image.backgroundImageSignIn}></div>
       <section className={styles.content__wrapper}>
-        <div className={layout.flex__layout}>
-          <form onSubmit={onSubmit} className={styles.form}>
+        <form onSubmit={onSubmit} className={`${styles.form} ${layout.twoRow__grid__layout}`}>
+          <div className={styles.form__inner}>
+            <header className={styles.header}>
+              <div className={styles.header__row}>
+                <span className={styles.header__text}>
+                  l<span className={styles.alternative}>e</span>t's
+                </span>
+              </div>
+              <div className={styles.header__row}>
+                <span className={styles.header__text}>sign</span>
+              </div>
+              <div className={styles.header__row}>
+                <span className={styles.header__text}>you in</span>
+              </div>
+            </header>
             <div className={styles.form__group}>
-              <header>
-                <div className={styles.form__heading}>
-                  <span>email adress</span>
-                </div>
-              </header>
               <input
                 type="email"
                 className={styles.form__control}
@@ -71,15 +81,11 @@ function Login() {
                 name="email"
                 value={email}
                 onChange={onChange}
-                placeholder="type your email here..."
+                placeholder="email"
               />
+              <div className={styles.spacer}></div>
             </div>
             <div className={styles.form__group}>
-              <header>
-                <div className={styles.form__heading}>
-                  <span>password</span>
-                </div>
-              </header>
               <input
                 type="password"
                 className={styles.form__control}
@@ -87,32 +93,20 @@ function Login() {
                 value={password}
                 onChange={onChange}
                 name="password"
-                placeholder="type your password here..."
+                placeholder="password"
               />
+              <div className={styles.spacer}></div>
             </div>
-            <div className={btnStyles.btns__row}>
-              <Link to="/">
-                <button
-                  type="submit"
-                  className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
-                >
-                  <span>←</span>
-                </button>
-              </Link>
-              <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-                <span>Log in</span>
-              </button>
-            </div>
-            <div className={`${btnStyles.btns__col} ${btnStyles.loginForm} ${btnStyles.absolute}`}>
-              <span>Don't have an account?</span>
-              <Link to="/register">
-                <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-                  <span>Create account</span>
-                </button>
-              </Link>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div className={btnStyles.btns__row}>
+            <Link className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`} to="/register">
+              <span>Create account</span>
+            </Link>
+            <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
+              <span>sign in</span>
+            </button>
+          </div>
+        </form>
       </section>
     </>
   );

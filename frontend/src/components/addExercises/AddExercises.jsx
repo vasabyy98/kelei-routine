@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { createWorkoutPlan } from "../features/plans/planSlice";
+import { createWorkoutPlan } from "../../features/plans/planSlice";
 import { useNavigate } from "react-router-dom";
 
-import ExerciseForm from "../components/ExerciseForm";
-import ExerciseList from "../components/ExerciseList";
-import PlanPreview from "../components/PlanPreview";
+import ExerciseForm from "../addExerciseForm/ExerciseForm";
+import ExerciseList from "../addedExercises/ExerciseList";
+import PlanPreview from "../planPreview/PlanPreview";
 
-import layout from "../css/layout.module.css";
-import styles from "../css/signIn.module.css";
-import btnStyles from "../css/buttons.module.css";
+import layout from "../../css/layout.module.css";
+import btnStyles from "../../css/buttons.module.css";
+
+import Header from "../header/Header";
 
 function AddExercises({
   addExercisesSection,
@@ -20,6 +21,9 @@ function AddExercises({
   setShowPreview,
   showPreview,
   previewSection,
+  setShowNamePlan,
+  namePlanSection,
+  showNamePlan,
 }) {
   const [show, setShow] = useState(false);
 
@@ -45,23 +49,6 @@ function AddExercises({
     setExercises("");
   };
 
-  const createPlan = () => {
-    const name = "kelei routine";
-    const routine = routineType;
-
-    exercises.forEach((el) => {
-      el.weight += massUnit;
-      el.stats = {
-        initialWeight: el.weight,
-        currentWeight: el.weight,
-        avgRest: 0,
-      };
-    });
-
-    dispatch(createWorkoutPlan({ name, exercises, routine }));
-    navigate("/home");
-  };
-
   useEffect(() => {
     if (showAddExercises) {
       addExercisesSection.current.classList.add(layout.visible);
@@ -77,50 +64,50 @@ function AddExercises({
   }, [showAddExercises, exercises]);
   return (
     <>
-      <section ref={addExercisesSection} className={`${layout.content__wrapper} ${layout.hidden}`}>
-        <div className={layout.threeRow__grid__layout}>
-          <header style={{ marginTop: "var(--padding)" }}>
-            <div className={styles.form__heading}>
-              <span>add your upper</span>
-            </div>
-            <div className={styles.form__heading}>
-              <span>split exercises</span>
-            </div>
-          </header>
-          <div className={layout.added__exercises}>
-            <ExerciseForm addExercise={addExercise} show={show} onClose={() => setShow(false)} />
-            <ExerciseList
-              exercises={exercises}
-              massUnit={massUnit}
-              removeExercise={removeExercise}
-            />
-            <div className={btnStyles.btns__col}>
-              <div className={`${btnStyles.form__btns}`}>
+      <section
+        ref={addExercisesSection}
+        className={`${layout.content__wrapper__bg} ${layout.hidden}`}
+      >
+        <div className={layout.twoRow__grid__layout}>
+          <div className={layout.flex__layout}>
+            <Header line1={"add your"} line2={"full body"} line3={"exercises"} />
+            <div className={layout.added__exercises}>
+              <ExerciseForm
+                addExercise={addExercise}
+                show={show}
+                onClose={() => setShow(false)}
+                addExercisesSection={addExercisesSection}
+              />
+              <ExerciseList
+                exercises={exercises}
+                massUnit={massUnit}
+                removeExercise={removeExercise}
+              />
+              <div className={btnStyles.btns__col}>
                 <button
                   onClick={() => setShow(true)}
                   className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}
                 >
                   <span>add exercise</span>
                 </button>
-              </div>
-              {exercises.length > 0 && (
-                <div className={`${btnStyles.form__btns}`}>
+                {exercises.length > 0 && (
                   <button
                     onClick={removeAllExercises}
                     className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}
                   >
                     <span>remove all exercises</span>
                   </button>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
+
           <div style={{ marginBottom: "var(--padding)" }} className={`${btnStyles.btns__row}`}>
             <button
               onClick={() => setShowAddExercises(false)}
               className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
             >
-              <span>←</span>
+              <span>go back</span>
             </button>
             <button
               disabled={btnStatus}
@@ -133,6 +120,7 @@ function AddExercises({
         </div>
       </section>
       <PlanPreview
+        addExercisesSection={addExercisesSection}
         exercises={exercises}
         massUnit={massUnit}
         routineType={routineType}
@@ -140,6 +128,9 @@ function AddExercises({
         showPreview={showPreview}
         setShowPreview={setShowPreview}
         previewSection={previewSection}
+        setShowNamePlan={setShowNamePlan}
+        namePlanSection={namePlanSection}
+        showNamePlan={showNamePlan}
       />
     </>
   );

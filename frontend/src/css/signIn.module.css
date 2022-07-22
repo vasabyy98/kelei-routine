@@ -6,14 +6,31 @@
   justify-content: center;
   align-items: center;
 }
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.4) 0%, var(--bg-color) 71.87%),
+    url(../images/signInBg.jpg);
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
 .form {
+  z-index: 1;
+}
+.form__inner {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: var(--gap-children);
 }
 .form__group {
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -25,23 +42,54 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.form__heading {
-  height: 2.25rem;
-  /* overflow: hidden; */
-  text-align: center;
-  font-family: FormulaCondensedBold;
-  font-size: 2.5rem;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
 .form__control {
   width: 100%;
-  padding: 0.5rem 0;
-  border-radius: 2.5rem;
+  padding: 1rem 0;
   line-height: 1;
-  border: 1px solid var(--text-color);
   text-align: center;
   font-size: 0.8rem;
+  text-transform: uppercase;
+}
+.spacer {
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+}
+.header {
+  margin-top: var(--padding);
+  text-align: center;
+  font-family: FormulaCondensedBold;
+  text-transform: uppercase;
+  font-size: 5rem;
+  line-height: 1.1;
+  z-index: 1;
+}
+.header__row {
+  height: 4.5rem;
+}
+.header__4 {
+  margin-top: var(--padding);
+  text-align: center;
+  font-family: FormulaCondensedBold;
+  text-transform: uppercase;
+  font-size: 4rem;
+  line-height: 1.15;
+}
+.header__4 .header__row {
+  height: 3.75rem;
+}
+.alternative {
+  font-feature-settings: "salt" on;
+}
+.clarification {
+  max-width: 27ch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--body-text-color);
 }
 @media (min-width: 1200px) {
   .form__group {
@@ -49,11 +97,6 @@
   }
 }
 @media (min-width: 600px) {
-  .form__group {
-    width: 450px;
-  }
-}
-@media (min-width: 900px) {
   .form__group {
     width: 450px;
   }

@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import layout from "../css/layout.module.css";
 import styles from "../css/index.module.css";
 import btnStyles from "../css/buttons.module.css";
+import image from "../css/backgroundImage.module.css";
 
 function Home() {
   return (
     <>
+      <div className={image.backgroundImageIndex}></div>
       <section className={layout.content__wrapper}>
         <div className={layout.flex__layout}>
           <div className={styles.intro}>
@@ -25,15 +27,15 @@ function Home() {
             </p>
           </div>
           <div className={`${btnStyles.btns__row} ${btnStyles.absolute}`}>
-            <Link to="/about">
-              <button className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
-                <span>learn more</span>
-              </button>
+            <Link className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`} to="/about">
+              {/* <button className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}> */}
+              <span>learn more</span>
+              {/* </button> */}
             </Link>
-            <Link to="/login">
-              <button className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-                <span>get started</span>
-              </button>
+            <Link className={`${btnStyles.btn} ${btnStyles.primaryBtn}`} to="/login">
+              {/* <button className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}> */}
+              <span>get started</span>
+              {/* </button> */}
             </Link>
           </div>
         </div>

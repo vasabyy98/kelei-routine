@@ -1,14 +1,20 @@
 @font-face {
-  font-family: "NeueMontreal";
-  src: url("./fonts/NeueMontreal-Regular.woff") format("woff");
-}
-@font-face {
   font-family: "FormulaCondensedRegular";
-  src: url("./fonts/FormulaCondensed-Regular.woff") format("woff");
+  src: url("./fonts/FormulaCondensed-Regular.woff2") format("woff");
 }
 @font-face {
   font-family: "FormulaCondensedBold";
-  src: url("./fonts/FormulaCondensed-Bold.woff") format("woff");
+  src: url("./fonts/FormulaCondensed-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "NeueMachina";
+  src: url("./fonts/NeueMachina-Regular.woff2") format("woff2");
+  font-feature-settings: "salt" on;
+}
+@font-face {
+  font-family: "NeueMachinaUB";
+  src: url("./fonts/NeueMachina-Ultrabold.woff2") format("woff2");
+  font-feature-settings: "salt" on;
 }
 
 * {
@@ -17,20 +23,21 @@
   box-sizing: border-box;
 }
 :root {
-  --bg-color: #f2f2f2;
-  --text-color: #141414;
+  --bg-color: #080808;
+  --text-color: #f2f2f2;
+  --body-text-color: #bfbfbf;
   --gap-children: 1.5rem;
   --padding: 3vh;
 }
 html {
   font-size: 20px;
   min-height: -webkit-fill-available;
-  background: #f2f2f2;
+  background: var(--bg-color);
 }
 body {
-  font-family: NeueMontreal;
-  font-size: 1rem;
-  line-height: 1.1;
+  font-family: NeueMachina;
+  font-size: 0.8rem;
+  line-height: 1.3;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -64,6 +71,7 @@ button:disabled {
 }
 a {
   all: unset;
+  cursor: pointer;
 }
 form {
   width: 100%;
@@ -84,8 +92,7 @@ label {
   background-color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
-  padding: 0 var(--padding);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .content__wrapper {
   width: 100%;
@@ -105,7 +112,7 @@ label {
 }
 @media (min-width: 1200px) {
   body {
-    background: #141414;
+    background: var(--bg-color);
     display: flex;
     justify-content: center;
   }

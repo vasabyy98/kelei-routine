@@ -1,0 +1,22 @@
+.header {
+  margin-top: var(--padding);
+  text-align: center;
+  font-family: FormulaCondensedBold;
+  text-transform: uppercase;
+  font-size: 5rem;
+  line-height: 1.1;
+}
+.header__row {
+  height: 4.5rem;
+}
+.header__4 {
+  margin-top: var(--padding);
+  text-align: center;
+  font-family: FormulaCondensedBold;
+  text-transform: uppercase;
+  font-size: 4rem;
+  line-height: 1.15;
+}
+.header__4 .header__row {
+  height: 3.75rem;
+}

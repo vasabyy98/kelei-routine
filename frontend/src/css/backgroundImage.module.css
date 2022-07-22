@@ -1,0 +1,49 @@
+.backgroundImageHome {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(180deg, #0a0a0a 0%, rgba(10, 10, 10, 0.4) 50%, #0a0a0a 100%),
+    url(../images/mainBg.jpg);
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+.backgroundImageSignIn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(180deg, #0a0a0a 0%, rgba(10, 10, 10, 0.4) 50%, #0a0a0a 100%),
+    url(../images/signInBg.jpg);
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+.backgroundImageIndex {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(180deg, #0a0a0a 0%, rgba(10, 10, 10, 0.4) 50%, #0a0a0a 100%),
+    url(../images/indexBg.jpg);
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+.backgroundImageNamePlan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(180deg, #0a0a0a 0%, rgba(10, 10, 10, 0.4) 50%, #0a0a0a 100%),
+    url(../images/planCreateBg.jpg);
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  z-index: 0;
+}

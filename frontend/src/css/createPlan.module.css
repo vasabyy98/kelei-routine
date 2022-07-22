@@ -25,19 +25,6 @@
 .relative {
   position: relative;
 }
-.weight {
-  bottom: 0;
-  right: -2px;
-  height: 100%;
-  font-size: 0.8rem;
-  position: absolute;
-  padding: 0.5rem 1rem;
-  border-radius: 2.5rem;
-  background: var(--text-color);
-  text-transform: uppercase;
-  border: 1px solid var(--text-color);
-  color: var(--bg-color);
-}
 .btn__wrapper {
   display: flex;
   flex-direction: column;

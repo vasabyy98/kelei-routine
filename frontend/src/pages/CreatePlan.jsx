@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 
-import ChooseRoutine from "../components/ChooseRoutine";
-import RoutineVolume from "../components/RoutineVolume";
-import AddExercises from "../components/AddExercises";
+import ChooseRoutine from "../components/chooseRoutine/ChooseRoutine";
+import RoutineVolume from "../components/routineVolume/RoutineVolume";
+import AddExercises from "../components/addExercises/AddExercises";
 
 export default function CreatePlan() {
   const [routineType, setRoutineType] = useState();
@@ -16,6 +16,9 @@ export default function CreatePlan() {
 
   const [showPreview, setShowPreview] = useState();
   const previewSection = useRef(null);
+
+  const [showNamePlan, setShowNamePlan] = useState();
+  const namePlanSection = useRef(null);
   return (
     <>
       <ChooseRoutine
@@ -39,6 +42,9 @@ export default function CreatePlan() {
         setShowPreview={setShowPreview}
         showPreview={showPreview}
         previewSection={previewSection}
+        setShowNamePlan={setShowNamePlan}
+        namePlanSection={namePlanSection}
+        showNamePlan={showNamePlan}
       />
     </>
   );
