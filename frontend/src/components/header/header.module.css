@@ -9,6 +9,9 @@
 .header__row {
   height: 4.5rem;
 }
+.header__text {
+  display: inline-block;
+}
 .header__4 {
   margin-top: var(--padding);
   text-align: center;

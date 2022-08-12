@@ -2,12 +2,12 @@ import React from "react";
 
 import styles from "./exerciseList.module.css";
 
-export default function ExerciseList({ exercises, massUnit, removeExercise }) {
+export default function ExerciseList({ fullbodyExercises, massUnit, removeExercise }) {
   return (
     <>
-      {exercises.length > 0 && (
+      {fullbodyExercises.length > 0 && (
         <section className={styles.exercise__wrapper}>
-          {exercises.map((exercise, index) => (
+          {fullbodyExercises.map((exercise, index) => (
             <div
               onClick={removeExercise}
               className={styles.exercise__inner}
@@ -15,7 +15,7 @@ export default function ExerciseList({ exercises, massUnit, removeExercise }) {
               name={exercise.exercise}
             >
               <div className={styles.spacerTop}></div>
-              {exercise.exercise} / {exercise.weight}
+              {exercise.exercise} / {exercise.currentWeight}
               {massUnit}
               <div className={styles.spacerBottom}></div>
             </div>

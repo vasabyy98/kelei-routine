@@ -1,39 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { createWorkoutPlan } from "../../features/plans/planSlice";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setFullbodyExercises, setUnit } from "../../features/plans/planDraftSlice";
 
 import ExerciseForm from "../addExerciseForm/ExerciseForm";
 import ExerciseList from "../addedExercises/ExerciseList";
-import PlanPreview from "../planPreview/PlanPreview";
 
 import layout from "../../css/layout.module.css";
 import btnStyles from "../../css/buttons.module.css";
 
 import Header from "../header/Header";
 
-function AddExercises({
-  addExercisesSection,
-  showAddExercises,
-  setShowAddExercises,
-  routineType,
-  routineVolume,
-  setShowPreview,
-  showPreview,
-  previewSection,
-  setShowNamePlan,
-  namePlanSection,
-  showNamePlan,
-}) {
-  const [show, setShow] = useState(false);
-
-  const [exercises, setExercises] = useState([]);
-  const [massUnit, setMassUnit] = useState("kg");
-
-  const [btnStatus, setBtnStatus] = useState(true);
-
+function AddExercises() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+
+  const draft = useSelector((state) => state.planDraft);
+
+  const [fullbodyExercises, setExercises] = useState(draft.fullbodyExercises);
+  const [massUnit, setMassUnit] = useState("kg");
+
+  const fullbodySection = useRef();
+
+  const nextLink = useRef();
 
   const addExercise = (exerciseInfo, unitInfo) => {
     setExercises((prev) => [...prev, exerciseInfo]);
@@ -42,32 +35,33 @@ function AddExercises({
 
   const removeExercise = (e) => {
     let val = e.currentTarget.getAttribute("name").toLowerCase();
-    setExercises(exercises.filter((exercise) => exercise.exercise !== val));
+    setExercises(fullbodyExercises.filter((exercise) => exercise.exercise !== val));
   };
 
   const removeAllExercises = () => {
     setExercises("");
   };
 
+  const onClick = () => {
+    dispatch(setUnit(massUnit));
+  };
+
   useEffect(() => {
-    if (showAddExercises) {
-      addExercisesSection.current.classList.add(layout.visible);
-    } else {
-      addExercisesSection.current.classList.remove(layout.visible);
+    if (draft.routineType.length === 0) {
+      navigate("/create-plan/routine");
     }
 
-    if (exercises.length > 0) {
-      setBtnStatus(false);
+    if (fullbodyExercises.length > 0) {
+      nextLink.current.classList.remove(btnStyles.disabledBtn);
     } else {
-      setBtnStatus(true);
+      nextLink.current.classList.add(btnStyles.disabledBtn);
     }
-  }, [showAddExercises, exercises]);
+
+    dispatch(setFullbodyExercises(fullbodyExercises));
+  }, [fullbodyExercises]);
   return (
     <>
-      <section
-        ref={addExercisesSection}
-        className={`${layout.content__wrapper__bg} ${layout.hidden}`}
-      >
+      <section ref={fullbodySection} className={`${layout.content__wrapper__bg}`}>
         <div className={layout.twoRow__grid__layout}>
           <div className={layout.flex__layout}>
             <Header line1={"add your"} line2={"full body"} line3={"exercises"} />
@@ -76,10 +70,10 @@ function AddExercises({
                 addExercise={addExercise}
                 show={show}
                 onClose={() => setShow(false)}
-                addExercisesSection={addExercisesSection}
+                section={fullbodySection}
               />
               <ExerciseList
-                exercises={exercises}
+                fullbodyExercises={fullbodyExercises}
                 massUnit={massUnit}
                 removeExercise={removeExercise}
               />
@@ -90,7 +84,7 @@ function AddExercises({
                 >
                   <span>add exercise</span>
                 </button>
-                {exercises.length > 0 && (
+                {fullbodyExercises.length > 0 && (
                   <button
                     onClick={removeAllExercises}
                     className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}
@@ -103,35 +97,20 @@ function AddExercises({
           </div>
 
           <div style={{ marginBottom: "var(--padding)" }} className={`${btnStyles.btns__row}`}>
-            <button
-              onClick={() => setShowAddExercises(false)}
-              className={`${btnStyles.btn} ${btnStyles.secondaryBtn} ${btnStyles.arrowBtn}`}
-            >
+            <Link className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`} to="/create-plan/volume">
               <span>go back</span>
-            </button>
-            <button
-              disabled={btnStatus}
-              onClick={() => setShowPreview(true)}
-              className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}
+            </Link>
+            <Link
+              ref={nextLink}
+              onClick={onClick}
+              className={`${btnStyles.btn} ${btnStyles.primaryBtn} ${btnStyles.disabledBtn}`}
+              to="/create-plan/preview"
             >
               <span>preview</span>
-            </button>
+            </Link>
           </div>
         </div>
       </section>
-      <PlanPreview
-        addExercisesSection={addExercisesSection}
-        exercises={exercises}
-        massUnit={massUnit}
-        routineType={routineType}
-        routineVolume={routineVolume}
-        showPreview={showPreview}
-        setShowPreview={setShowPreview}
-        previewSection={previewSection}
-        setShowNamePlan={setShowNamePlan}
-        namePlanSection={namePlanSection}
-        showNamePlan={showNamePlan}
-      />
     </>
   );
 }

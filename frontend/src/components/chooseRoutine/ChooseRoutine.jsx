@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { Link } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setRoutine, resetAllExercises } from "../../features/plans/planDraftSlice";
 
 import layout from "../../css/layout.module.css";
 import styles from "../../css/signIn.module.css";
@@ -8,9 +11,15 @@ import btnStyles from "../../css/buttons.module.css";
 
 import Header from "../header/Header";
 
-function ChooseRoutine({ setRoutineType, setShowVolume }) {
+function ChooseRoutine() {
+  const dispatch = useDispatch();
+
   const [btnStatus, setBtnStatus] = useState(true);
   const activeBtn = useRef();
+
+  const nextLink = useRef();
+
+  const [routineType, setRoutineType] = useState(null);
 
   const onClick = (e) => {
     setRoutineType(e.currentTarget.innerText.toLowerCase());
@@ -18,9 +27,14 @@ function ChooseRoutine({ setRoutineType, setShowVolume }) {
     activeBtn.current = e.currentTarget;
     activeBtn.current.classList.add(btnStyles.btn__selected);
     setBtnStatus(false);
+    nextLink.current.classList.remove(btnStyles.disabledBtn);
+
+    dispatch(resetAllExercises());
   };
 
-  const forwardBtn = useRef();
+  useEffect(() => {
+    routineType !== null && dispatch(setRoutine(routineType));
+  }, [routineType]);
 
   return (
     <>
@@ -48,13 +62,13 @@ function ChooseRoutine({ setRoutineType, setShowVolume }) {
             <Link className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`} to="/home">
               <span>go back</span>
             </Link>
-            <button
-              disabled={btnStatus}
-              onClick={() => setShowVolume(true)}
-              className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}
+            <Link
+              ref={nextLink}
+              className={`${btnStyles.btn} ${btnStyles.primaryBtn} ${btnStyles.disabledBtn}`}
+              to="/create-plan/volume"
             >
               <span>next step</span>
-            </button>
+            </Link>
           </div>
         </div>
       </section>

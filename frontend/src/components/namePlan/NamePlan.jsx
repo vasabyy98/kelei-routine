@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState, useRef } from "react";
+
+import { useNavigate, Link } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import { createWorkoutPlan } from "../../features/plans/planSlice";
 
 import layout from "../../css/layout.module.css";
@@ -8,19 +11,15 @@ import changeThis from "../addExerciseForm/exerciseForm.module.css";
 import styles from "../../css/signIn.module.css";
 import btnStyles from "../../css/buttons.module.css";
 import image from "../../css/backgroundImage.module.css";
+import { setName } from "../../features/plans/planDraftSlice";
 
-function NamePlan({
-  showNamePlan,
-  namePlanSection,
-  addExercisesSection,
-  exercises,
-  massUnit,
-  routineType,
-  routineVolume,
-  setShowNamePlan,
-}) {
+function NamePlan() {
+  const draft = useSelector((state) => state.planDraft);
+
+  const input = useRef();
+
   const [formData, setFormData] = useState({
-    workoutName: "",
+    workoutName: draft.name,
   });
 
   const { workoutName } = formData;
@@ -36,37 +35,22 @@ function NamePlan({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (showNamePlan) {
-      namePlanSection.current.classList.add(layout.visible);
-      addExercisesSection.current.classList.add(changeThis.hide);
-    } else {
-      namePlanSection.current.classList.remove(layout.visible);
-      addExercisesSection.current.classList.remove(changeThis.hide);
+    if (input.current.value === "") {
+      input.current.focus();
     }
-  }, [showNamePlan]);
+
+    dispatch(setName(workoutName));
+  }, [workoutName]);
 
   const createPlan = (e) => {
     e.preventDefault();
 
-    const name = workoutName;
-    const routine = routineType;
-    const volume = routineVolume;
-
-    exercises.forEach((el) => {
-      el.weight += massUnit;
-      el.stats = {
-        initialWeight: el.weight,
-        currentWeight: el.weight,
-        avgRest: 0,
-      };
-    });
-
-    dispatch(createWorkoutPlan({ name, exercises, routine, volume }));
+    dispatch(createWorkoutPlan(draft));
     navigate("/home");
   };
   return (
     <>
-      <section ref={namePlanSection} className={`${layout.content__wrapper__bg} ${layout.hidden}`}>
+      <section className={`${layout.content__wrapper__bg} `}>
         <div className={image.backgroundImageNamePlan}></div>
         <div className={layout.twoRow__grid__layout}>
           <div className={layout.flex__layout}>
@@ -84,6 +68,7 @@ function NamePlan({
               <div className={styles.form__inner}>
                 <div className={styles.form__group}>
                   <input
+                    ref={input}
                     type="text"
                     className={styles.form__control}
                     id="workoutName"
@@ -96,16 +81,12 @@ function NamePlan({
                 </div>
               </div>
               <div className={`${btnStyles.btns__row} ${btnStyles.absolute}`}>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-
-                    setShowNamePlan(false);
-                  }}
-                  className={`${btnStyles.btn} ${btnStyles.secondaryBtn} `}
+                <Link
+                  to="/create-plan/preview"
+                  className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}
                 >
                   <span>go back</span>
-                </button>
+                </Link>
                 <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
                   <span>let's rock!</span>
                 </button>

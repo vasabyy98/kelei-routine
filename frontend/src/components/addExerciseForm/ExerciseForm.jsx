@@ -6,10 +6,12 @@ import styles from "../../css/signIn.module.css";
 import btnStyles from "../../css/buttons.module.css";
 import layout from "../addExerciseForm/exerciseForm.module.css";
 
-export default function ExerciseForm({ addExercise, show, onClose, addExercisesSection }) {
+export default function ExerciseForm({ addExercise, show, onClose, section }) {
   const [exerciseInfo, setExerciseInfo] = useState({
     exercise: "",
-    weight: "",
+    currentWeight: "",
+    initialWeight: 0,
+    restTime: 0,
   });
 
   const [massUnit, setUnit] = useState("kg");
@@ -20,10 +22,10 @@ export default function ExerciseForm({ addExercise, show, onClose, addExercisesS
   useEffect(() => {
     if (show) {
       modalRef.current.classList.add(layout.visible);
-      addExercisesSection.current.classList.add(layout.hide);
+      section.current.classList.add(layout.hide);
     } else {
       modalRef.current.classList.remove(layout.visible);
-      addExercisesSection.current.classList.remove(layout.hide);
+      section.current.classList.remove(layout.hide);
     }
 
     if (exerciseInput.current.value === "" && show === true) {
@@ -31,7 +33,9 @@ export default function ExerciseForm({ addExercise, show, onClose, addExercisesS
     }
   }, [show, exerciseInfo]);
 
-  const changeUnit = () => {
+  const changeUnit = (e) => {
+    e.preventDefault();
+
     if (massUnit === "kg") {
       setUnit("lb");
     } else {
@@ -44,6 +48,12 @@ export default function ExerciseForm({ addExercise, show, onClose, addExercisesS
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+
+    e.target.name === "currentWeight" &&
+      setExerciseInfo((prevState) => ({
+        ...prevState,
+        initialWeight: e.target.value,
+      }));
   };
 
   const onSubmit = (e) => {
@@ -77,7 +87,7 @@ export default function ExerciseForm({ addExercise, show, onClose, addExercisesS
           </div>
           <div className={styles.form__group}>
             <input
-              name="weight"
+              name="currentWeight"
               type="number"
               value={exerciseInfo.weight}
               className={styles.form__control}

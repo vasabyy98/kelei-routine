@@ -9,6 +9,7 @@ const workoutPlanSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   routine: {
     type: String,
@@ -18,38 +19,82 @@ const workoutPlanSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  exercises: [
+  // exercises: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //     weight: String,
+  //     stats: Object,
+  //   },
+  // ],
+  // exercises2: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //     weight: String,
+  //     stats: Object,
+  //   },
+  // ],
+  // exercises3: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //     weight: String,
+  //     stats: Object,
+  //   },
+  // ],
+  fullbody: [
+    {
+      _id: false,
+      exercise: String,
+      currentWeight: Number,
+      initialWeight: Number,
+      restTime: Number,
+    },
+  ],
+  upperSplit: [
+    {
+      _id: false,
+      exercise: String,
+      currentWeight: Number,
+      initialWeight: Number,
+      restTime: Number,
+    },
+  ],
+  lowerSplit: [
+    {
+      _id: false,
+      exercise: String,
+      currentWeight: Number,
+      initialWeight: Number,
+      restTime: Number,
+    },
+  ],
+  pushDay: [
+    {
+      _id: false,
+      exercise: String,
+      currentWeight: Number,
+      initialWeight: Number,
+      restTime: Number,
+    },
+  ],
+  pullDay: [
+    {
+      _id: false,
+      exercise: String,
+      currentWeight: Number,
+      initialWeight: Number,
+      restTime: Number,
+    },
+  ],
+  legsDay: [
     {
       _id: false,
       exercise: String,
       weight: String,
-      stats: Object,
     },
   ],
-  exercises2: [
-    {
-      _id: false,
-      exercise: String,
-      weight: String,
-      stats: Object,
-    },
-  ],
-  exercises3: [
-    {
-      _id: false,
-      exercise: String,
-      weight: String,
-      stats: Object,
-    },
-  ],
-  // exercises: {
-  //   type: Array,
-  //   required: true,
-  // },
-  // weights: {
-  //   type: Array,
-  //   required: true,
-  // },
 });
 
 module.exports = mongoose.model("workoutPlan", workoutPlanSchema);

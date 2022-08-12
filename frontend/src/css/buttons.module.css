@@ -40,7 +40,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
 }
 .btn__select::before {
   content: "";
@@ -49,16 +49,18 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
 }
 .btn__selected {
-  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
   color: var(--bg-color);
 }
 .absolute {
   position: absolute;
   width: 100%;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .fixed {
   position: fixed;
@@ -83,6 +85,14 @@
   border-radius: 2.5rem;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.25);
   flex: 1;
+  transition: transform 0.3s;
+}
+.btn:hover {
+  cursor: pointer;
+  user-select: none;
+}
+.btn:active {
+  transform: scale(0.95);
 }
 .btn span {
   display: block;
@@ -95,14 +105,20 @@
   font-size: 0.8rem;
 }
 .primaryBtn {
-  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
   border-radius: 2.5rem;
   color: var(--bg-color);
 }
 .secondaryBtn {
   background: #191919;
 }
-/* create-plan btns */
+.deleteBtn {
+  background: #a91921;
+}
+.disabledBtn {
+  pointer-events: none;
+  opacity: 0.5;
+}
 
 @media (min-width: 1200px) {
   .fixed {
