@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -81,7 +81,7 @@ function PlanPreview() {
               <Link
                 ref={nextLink}
                 className={`${btnStyles.btn} ${btnStyles.secondaryBtn} `}
-                to="/create-plan/fullbody-exercises"
+                to="/create-plan/legs-exercises"
               >
                 <span>go back</span>
               </Link>

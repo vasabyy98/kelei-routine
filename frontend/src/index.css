@@ -7,14 +7,16 @@
   src: url("./fonts/FormulaCondensed-Bold.woff2") format("woff2");
 }
 @font-face {
-  font-family: "NeueMachina";
-  src: url("./fonts/NeueMachina-Regular.woff2") format("woff2");
-  font-feature-settings: "salt" on;
+  font-family: "NeueMontreal-Regular";
+  src: url("./fonts/NeueMontreal-Regular.woff2") format("woff2");
 }
 @font-face {
-  font-family: "NeueMachinaUB";
-  src: url("./fonts/NeueMachina-Ultrabold.woff2") format("woff2");
-  font-feature-settings: "salt" on;
+  font-family: "NeueMontreal-Medium";
+  src: url("./fonts/PPNeueMontreal-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "NeueMontreal-Bold";
+  src: url("./fonts/NeueMontreal-Bold.woff2") format("woff2");
 }
 
 * {
@@ -35,9 +37,8 @@ html {
   background: var(--bg-color);
 }
 body {
-  font-family: NeueMachina;
-  font-size: 0.8rem;
-  line-height: 1.3;
+  font-family: NeueMontreal-Regular;
+  font-size: 0.9rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -62,12 +63,6 @@ button {
 button:hover {
   cursor: pointer;
   user-select: none;
-}
-button:active {
-  transform: scale(0.95);
-}
-button:disabled {
-  opacity: 0.5;
 }
 a {
   all: unset;

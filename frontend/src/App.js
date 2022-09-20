@@ -16,6 +16,8 @@ import AddPullExercises from "./components/ppl/AddPullExercises";
 import AddLegsExercises from "./components/ppl/AddLegsExercises";
 import PlanPreview from "./components/planPreview/PlanPreview";
 import NamePlan from "./components/namePlan/NamePlan";
+import ChooseWorkout from "./components/chooseWorkout/ChooseWorkout";
+import ChooseExercise from "./components/chooseExercise/ChooseExercise";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
             <Route path="/create-plan/legs-exercises" element={<AddLegsExercises />} />
             <Route path="/create-plan/preview" element={<PlanPreview />} />
             <Route path="/create-plan/name-plan" element={<NamePlan />} />
+            <Route path="/choose-workout" element={<ChooseWorkout />} />
+            <Route path="/choose-exercise" element={<ChooseExercise />} />
           </Routes>
         </div>
       </Router>

@@ -40,7 +40,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
+  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
 }
 .btn__select::before {
   content: "";
@@ -49,10 +49,10 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
+  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
 }
 .btn__selected {
-  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
+  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
   color: var(--bg-color);
 }
 .absolute {
@@ -91,9 +91,6 @@
   cursor: pointer;
   user-select: none;
 }
-.btn:active {
-  transform: scale(0.95);
-}
 .btn span {
   display: block;
   height: 1.1rem;
@@ -105,12 +102,34 @@
   font-size: 0.8rem;
 }
 .primaryBtn {
-  background: linear-gradient(90deg, #f2c3d6 0%, #c4dec8 100%);
-  border-radius: 2.5rem;
-  color: var(--bg-color);
+  position: relative;
+  background: var(--bg-color);
+  border-radius: 1rem;
+  /* color: var(--text-color); */
+}
+.primaryBtn span {
+  background: linear-gradient(74.65deg, #1bb589 0%, #9670ef 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.primaryBtn::after {
+  content: "";
+  position: absolute;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(74.65deg, #1bb589 0%, #9670ef 100%);
+  border-radius: 1rem;
+  z-index: -1;
 }
 .secondaryBtn {
-  background: #191919;
+  /* background: #191919; */
+  font-family: NeueMontreal-Regular;
+  font-size: 0.9rem;
+  text-transform: none;
+  text-decoration: underline;
 }
 .deleteBtn {
   background: #a91921;

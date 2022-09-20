@@ -1,24 +1,21 @@
 import React from "react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
 import { logout, reset } from "../features/auth/authSlice";
+
 import { getPlans, resetPlans } from "../features/plans/planSlice";
 import { resetDraft } from "../features/plans/planDraftSlice";
+
+import { setSelectedPlan, resetSelectedPlan } from "../features/plans/selectedPlanSlice";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/home.module.css";
 import btnStyles from "../css/buttons.module.css";
 import image from "../css/backgroundImage.module.css";
 
-import ChooseWorkout from "../components/chooseWorkout/ChooseWorkout";
-
 function Home() {
-  const [showWorkout, setShowWorkout] = useState(false);
-  const chooseWorkoutSection = useRef(null);
-  const homeSection = useRef();
-  const [requestedPlan, setRequestedPlan] = useState("");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -41,6 +38,7 @@ function Home() {
     }
 
     dispatch(getPlans());
+    dispatch(resetSelectedPlan());
 
     return () => {
       dispatch(resetPlans());
@@ -49,20 +47,17 @@ function Home() {
   }, [user, navigate, isError, message, dispatch]);
 
   const onClick = (e) => {
-    let chosenPlan;
-    plans.forEach((plan) => {
-      if (plan._id === e.currentTarget.attributes.planid.value) chosenPlan = plan;
-    });
-
-    setRequestedPlan(chosenPlan);
-
-    setShowWorkout(true);
+    const requestedPlan = plans.find(
+      (element) => element._id === e.currentTarget.attributes.planid.value
+    );
+    dispatch(setSelectedPlan(requestedPlan));
+    navigate("/choose-workout");
   };
 
   return (
     <>
       <div className={image.backgroundImageHome}></div>
-      <section ref={homeSection} className={layout.content__wrapper}>
+      <section className={layout.content__wrapper}>
         {isLoading !== true && (
           <div className={layout.threeRow__grid__layout}>
             <header className={styles.home__header}>
@@ -122,13 +117,6 @@ function Home() {
           </div>
         )}
       </section>
-      <ChooseWorkout
-        homeSection={homeSection}
-        requestedPlan={requestedPlan}
-        showWorkout={showWorkout}
-        setShowWorkout={setShowWorkout}
-        chooseWorkoutSection={chooseWorkoutSection}
-      />
     </>
   );
 }

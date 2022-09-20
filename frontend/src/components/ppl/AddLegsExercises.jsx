@@ -97,7 +97,10 @@ function AddExercises() {
           </div>
 
           <div style={{ marginBottom: "var(--padding)" }} className={`${btnStyles.btns__row}`}>
-            <Link to="/create-plan/volume" className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
+            <Link
+              to="/create-plan/pull-exercises"
+              className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}
+            >
               <span>go back</span>
             </Link>
             <Link

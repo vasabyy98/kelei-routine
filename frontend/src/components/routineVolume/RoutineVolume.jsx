@@ -14,7 +14,6 @@ function RoutineVolume() {
   const dispatch = useDispatch();
 
   const activeBtn = useRef();
-  const [btnStatus, setBtnStatus] = useState(true);
 
   const nextLink = useRef();
 
@@ -25,7 +24,6 @@ function RoutineVolume() {
     activeBtn.current.classList.remove(btnStyles.btn__selected);
     activeBtn.current = e.currentTarget;
     activeBtn.current.classList.add(btnStyles.btn__selected);
-    setBtnStatus(false);
     nextLink.current.classList.remove(btnStyles.disabledBtn);
   };
 

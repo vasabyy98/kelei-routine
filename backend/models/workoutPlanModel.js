@@ -16,83 +16,42 @@ const workoutPlanSchema = mongoose.Schema({
     required: true,
   },
   volume: {
-    type: String,
+    type: Number,
     required: true,
   },
-  // exercises: [
-  //   {
-  //     _id: false,
-  //     exercise: String,
-  //     weight: String,
-  //     stats: Object,
-  //   },
-  // ],
-  // exercises2: [
-  //   {
-  //     _id: false,
-  //     exercise: String,
-  //     weight: String,
-  //     stats: Object,
-  //   },
-  // ],
-  // exercises3: [
-  //   {
-  //     _id: false,
-  //     exercise: String,
-  //     weight: String,
-  //     stats: Object,
-  //   },
-  // ],
   fullbody: [
     {
-      _id: false,
       exercise: String,
-      currentWeight: Number,
-      initialWeight: Number,
-      restTime: Number,
     },
   ],
   upperSplit: [
     {
       _id: false,
       exercise: String,
-      currentWeight: Number,
-      initialWeight: Number,
-      restTime: Number,
     },
   ],
   lowerSplit: [
     {
       _id: false,
       exercise: String,
-      currentWeight: Number,
-      initialWeight: Number,
-      restTime: Number,
     },
   ],
   pushDay: [
     {
       _id: false,
       exercise: String,
-      currentWeight: Number,
-      initialWeight: Number,
-      restTime: Number,
     },
   ],
   pullDay: [
     {
       _id: false,
       exercise: String,
-      currentWeight: Number,
-      initialWeight: Number,
-      restTime: Number,
     },
   ],
   legsDay: [
     {
       _id: false,
       exercise: String,
-      weight: String,
     },
   ],
 });

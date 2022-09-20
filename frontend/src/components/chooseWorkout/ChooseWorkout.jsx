@@ -1,92 +1,90 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePlan } from "../../features/plans/planSlice";
 
+import { Link, useNavigate } from "react-router-dom";
+
+import { setSelectedWorkout } from "../../features/plans/selectedPlanSlice";
+
 import layout from "../../css/layout.module.css";
-import changeThis from "../addExerciseForm/exerciseForm.module.css";
 import styles from "../addedExercises/exerciseList.module.css";
 import btnStyles from "../../css/buttons.module.css";
 
 import Header from "../header/Header";
 
-function ChooseWorkout({
-  homeSection,
-  requestedPlan,
-  showWorkout,
-  setShowWorkout,
-  chooseWorkoutSection,
-}) {
+function ChooseWorkout() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const selectedPlan = useSelector((state) => state.selectedPlan);
 
   useEffect(() => {
-    if (showWorkout) {
-      chooseWorkoutSection.current.classList.add(layout.visible);
-      homeSection.current.classList.add(changeThis.hide);
-    } else if (showWorkout === false) {
-      chooseWorkoutSection.current.classList.remove(layout.visible);
-      homeSection.current.classList.remove(changeThis.hide);
-    }
-  }, [showWorkout]);
+    selectedPlan._id === "" && navigate("/home");
+  });
+
+  const onClick = (e) => {
+    dispatch(setSelectedWorkout(e.currentTarget.attributes.routinetype.value));
+    navigate("/choose-exercise");
+  };
 
   const deleteSelectedPlan = () => {
-    dispatch(deletePlan(requestedPlan._id));
-    setShowWorkout(false);
+    dispatch(deletePlan(selectedPlan._id));
+    navigate("/home");
   };
   return (
     <>
-      <section
-        ref={chooseWorkoutSection}
-        className={`${layout.content__wrapper__bg} ${layout.hidden}`}
-      >
+      <section className={`${layout.content__wrapper__bg} `}>
         <div className={layout.twoRow__grid__layout}>
           <div className={layout.flex__layout}>
-            <Header line1={requestedPlan.name} />
+            <Header line1={selectedPlan.name} />
             <section className={styles.exercise__wrapper}>
-              {requestedPlan.routine === "full body" ? (
-                <div className={styles.exercise__inner}>
+              {selectedPlan.routine === "full body" && (
+                <div onClick={onClick} routinetype="fullbody" className={styles.exercise__inner}>
                   <div className={styles.spacerTop}></div>
                   full body
                   <div className={styles.spacerBottom}></div>
                 </div>
-              ) : (
-                <></>
               )}
-              {requestedPlan.routine === "a/b split" ? (
+              {selectedPlan.routine === "a/b split" && (
                 <>
-                  <div className={styles.exercise__inner}>
+                  <div
+                    onClick={onClick}
+                    routinetype="upperSplit"
+                    className={styles.exercise__inner}
+                  >
                     <div className={styles.spacerTop}></div>
                     upper split
                     <div className={styles.spacerBottom}></div>
                   </div>
-                  <div className={styles.exercise__inner}>
+                  <div
+                    onClick={onClick}
+                    routinetype="lowerSplit"
+                    className={styles.exercise__inner}
+                  >
                     <div className={styles.spacerTop}></div>
                     lower split
                     <div className={styles.spacerBottom}></div>
                   </div>
                 </>
-              ) : (
-                <></>
               )}
-              {requestedPlan.routine === "ppl" ? (
+              {selectedPlan.routine === "ppl" && (
                 <>
-                  <div className={styles.exercise__inner}>
+                  <div onClick={onClick} routinetype="pushDay" className={styles.exercise__inner}>
                     <div className={styles.spacerTop}></div>
                     push day
                     <div className={styles.spacerBottom}></div>
                   </div>
-                  <div className={styles.exercise__inner}>
+                  <div onClick={onClick} routinetype="pullDay" className={styles.exercise__inner}>
                     <div className={styles.spacerTop}></div>
                     pull day
                     <div className={styles.spacerBottom}></div>
                   </div>
-                  <div className={styles.exercise__inner}>
+                  <div onClick={onClick} routinetype="legsDay" className={styles.exercise__inner}>
                     <div className={styles.spacerTop}></div>
                     legs day
                     <div className={styles.spacerBottom}></div>
                   </div>
                 </>
-              ) : (
-                <></>
               )}
             </section>
             <div className={`${btnStyles.btns__row}`}>
@@ -106,12 +104,9 @@ function ChooseWorkout({
             </div>
           </div>
           <div className={btnStyles.btns__row}>
-            <button
-              onClick={() => setShowWorkout(false)}
-              className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}
-            >
+            <Link to="/home" className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
               <span>go back</span>
-            </button>
+            </Link>
           </div>
         </div>
       </section>

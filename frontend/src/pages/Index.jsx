@@ -29,7 +29,7 @@ function Home() {
           <div className={`${btnStyles.btns__row} ${btnStyles.absolute}`}>
             <Link className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`} to="/about">
               {/* <button className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}> */}
-              <span>learn more</span>
+              <span>Learn more</span>
               {/* </button> */}
             </Link>
             <Link className={`${btnStyles.btn} ${btnStyles.primaryBtn}`} to="/login">

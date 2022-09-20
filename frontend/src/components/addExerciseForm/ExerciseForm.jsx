@@ -7,12 +7,14 @@ import btnStyles from "../../css/buttons.module.css";
 import layout from "../addExerciseForm/exerciseForm.module.css";
 
 export default function ExerciseForm({ addExercise, show, onClose, section }) {
-  const [exerciseInfo, setExerciseInfo] = useState({
+  const initialState = {
     exercise: "",
     currentWeight: "",
-    initialWeight: 0,
+    initialWeight: "",
     restTime: 0,
-  });
+  };
+
+  const [exerciseInfo, setExerciseInfo] = useState(initialState);
 
   const [massUnit, setUnit] = useState("kg");
 
@@ -62,7 +64,7 @@ export default function ExerciseForm({ addExercise, show, onClose, section }) {
     if (e.target[0].value !== "" && e.target[1].value !== "") {
       addExercise(exerciseInfo, massUnit);
 
-      setExerciseInfo({ exercise: "", weight: "" });
+      setExerciseInfo(initialState);
 
       onClose();
     }
@@ -82,6 +84,7 @@ export default function ExerciseForm({ addExercise, show, onClose, section }) {
               className={styles.form__control}
               placeholder="exercise name"
               onChange={handleChange}
+              maxLength={24}
             />
             <div className={styles.spacer}></div>
           </div>
@@ -89,7 +92,7 @@ export default function ExerciseForm({ addExercise, show, onClose, section }) {
             <input
               name="currentWeight"
               type="number"
-              value={exerciseInfo.weight}
+              value={exerciseInfo.currentWeight}
               className={styles.form__control}
               placeholder="weight"
               onChange={handleChange}

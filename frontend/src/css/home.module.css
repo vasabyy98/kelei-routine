@@ -51,7 +51,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   margin-bottom: -1px;
+  padding: 0 var(--padding);
 }
 .home__plan {
   position: relative;
@@ -62,9 +64,18 @@
   font-size: 2.5rem;
   line-height: 1.1;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.045);
+  background: #bfbfbf41;
+  border-radius: 35px;
+  cursor: pointer;
+  transition: 0.25s ease-out;
 }
-.home__plan::after {
+.home__plan:hover {
+  background: #bfbfbf81;
+}
+.home__plan:active {
+  transform: scale(0.95);
+}
+/* .home__plan::after {
   content: "";
   position: absolute;
   top: 0;
@@ -81,7 +92,7 @@
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
-}
+} */
 .home__planInner {
   display: flex;
   flex-direction: column;

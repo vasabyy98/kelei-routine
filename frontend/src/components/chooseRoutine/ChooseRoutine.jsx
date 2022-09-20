@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setRoutine, resetAllExercises } from "../../features/plans/planDraftSlice";
 
 import layout from "../../css/layout.module.css";
@@ -14,7 +14,6 @@ import Header from "../header/Header";
 function ChooseRoutine() {
   const dispatch = useDispatch();
 
-  const [btnStatus, setBtnStatus] = useState(true);
   const activeBtn = useRef();
 
   const nextLink = useRef();
@@ -26,7 +25,6 @@ function ChooseRoutine() {
     activeBtn.current.classList.remove(btnStyles.btn__selected);
     activeBtn.current = e.currentTarget;
     activeBtn.current.classList.add(btnStyles.btn__selected);
-    setBtnStatus(false);
     nextLink.current.classList.remove(btnStyles.disabledBtn);
 
     dispatch(resetAllExercises());

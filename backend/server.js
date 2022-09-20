@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/plans", require("./routes/workoutPlanRoutes"));
+app.use("/api/exercises", require("./routes/exerciseRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
