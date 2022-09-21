@@ -64,13 +64,39 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(74.65deg, #1bb589 0%, #9670ef 100%);
+  /* background: linear-gradient(74.65deg, #1bb589 0%, #9670ef 100%); */
+  /* animation test */
+  background-image: linear-gradient(
+    103.3deg,
+    rgba(252, 225, 208, 1) 30%,
+    rgba(255, 173, 214, 1) 55.7%,
+    rgba(162, 186, 245, 1) 81.8%
+  );
+  background-size: 200% 200%;
+  animation: gradient 10s ease infinite;
+  animation-play-state: running;
+  /* end */
   border-radius: 1rem;
   z-index: -2;
 }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 90% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .form__control:focus + .gradient__stroke {
   opacity: 0;
 }
+/* .form__group:hover::after {
+  animation-play-state: running;
+} */
 .gradient__stroke {
   position: absolute;
   width: calc(100% + 2px);
