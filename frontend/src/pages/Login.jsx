@@ -8,8 +8,9 @@ import { login, reset } from "../features/auth/authSlice";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/signIn.module.css";
+import header from "../css/header.module.css";
 import btnStyles from "../css/buttons.module.css";
-import image from "../css/backgroundImage.module.css";
+import nav from "../css/nav.module.css";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -56,52 +57,49 @@ function Login() {
 
   return (
     <>
-      <div className={image.backgroundImageSignIn}></div>
-      <section className={styles.content__wrapper}>
-        <form onSubmit={onSubmit} className={`${styles.form} ${layout.twoRow__grid__layout}`}>
+      <section className={layout.content__wrapper}>
+        <form onSubmit={onSubmit} className={`${styles.form} ${layout.threeRow__grid__layout}`}>
+          <nav className={nav.nav}>
+            <Link to="/">
+              <span className={nav.arrow__link}>←</span>
+            </Link>
+            <Link to="/register">
+              <span className={nav.text__link}>Sign up</span>
+            </Link>
+          </nav>
           <div className={styles.form__inner}>
-            <header className={styles.header}>
-              <div className={styles.header__row}>
-                <span className={styles.header__text}>
-                  l<span className={styles.alternative}>e</span>t's
-                </span>
-              </div>
-              <div className={styles.header__row}>
-                <span className={styles.header__text}>sign</span>
-              </div>
-              <div className={styles.header__row}>
-                <span className={styles.header__text}>you in</span>
-              </div>
+            <header className={header.header}>
+              <h2 className={header.heading__h2}>Let's sign you in!</h2>
+              <p className={header.subheading}>Log in or sign up to get started.</p>
             </header>
-            <div className={styles.form__group}>
-              <input
-                type="email"
-                className={styles.form__control}
-                id="email"
-                name="email"
-                value={email}
-                onChange={onChange}
-                placeholder="email"
-              />
-              <div className={styles.spacer}></div>
-            </div>
-            <div className={styles.form__group}>
-              <input
-                type="password"
-                className={styles.form__control}
-                id="password"
-                value={password}
-                onChange={onChange}
-                name="password"
-                placeholder="password"
-              />
-              <div className={styles.spacer}></div>
+            <div className={styles.input__wrapper}>
+              <div className={styles.form__group}>
+                <input
+                  type="email"
+                  className={styles.form__control}
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={onChange}
+                  placeholder="Email adress"
+                />
+                <div className={styles.gradient__stroke}></div>
+              </div>
+              <div className={styles.form__group}>
+                <input
+                  type="password"
+                  className={styles.form__control}
+                  id="password"
+                  value={password}
+                  onChange={onChange}
+                  name="password"
+                  placeholder="Password"
+                />
+                <div className={styles.gradient__stroke}></div>
+              </div>
             </div>
           </div>
           <div className={btnStyles.btns__row}>
-            <Link className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`} to="/register">
-              <span>Create account</span>
-            </Link>
             <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
               <span>sign in</span>
             </button>

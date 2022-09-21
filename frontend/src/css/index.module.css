@@ -4,7 +4,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: linear-gradient(180deg, rgba(10, 10, 10, 0.4) 0%, var(--bg-color) 71.87%),
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.3) 0%, rgba(10, 10, 10, 0.7) 100%),
     url(../images/indexBg.jpg);
   background-size: cover;
   background-position: top;
@@ -15,7 +15,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
+  z-index: 1;
 }
 .intro__header {
   font-family: FormulaCondensedBold;
@@ -27,7 +29,7 @@
   text-align: center;
 }
 .intro__subheading {
-  max-width: 28ch;
+  max-width: 30ch;
   text-align: center;
   color: var(--body-text-color);
 }

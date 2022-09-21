@@ -1,6 +1,5 @@
 .btns__row,
 .btns__col {
-  padding: 0 var(--padding);
   margin-bottom: var(--padding);
   z-index: 0;
 }
@@ -61,6 +60,8 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+  padding: 0 var(--padding);
+  z-index: 1;
 }
 .fixed {
   position: fixed;
@@ -136,7 +137,6 @@
 }
 .disabledBtn {
   pointer-events: none;
-  opacity: 0.5;
 }
 
 @media (min-width: 1200px) {

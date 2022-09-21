@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 var(--padding);
 }
 .backgroundImage {
   position: absolute;
@@ -27,7 +28,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--gap-children);
+}
+.stacked__group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.input__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .form__group {
   position: relative;
@@ -36,53 +50,38 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.stacked__group {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
 .form__control {
-  width: 100%;
-  padding: 1rem 0;
-  line-height: 1;
-  text-align: center;
-  font-size: 0.8rem;
-  text-transform: uppercase;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  background: var(--bg-color);
 }
-.spacer {
+.form__group::after {
+  content: "";
   position: absolute;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(90deg, #dae2f8 0%, #d6a4a4 100%);
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(74.65deg, #1bb589 0%, #9670ef 100%);
+  border-radius: 1rem;
+  z-index: -2;
 }
-.header {
-  margin-top: var(--padding);
-  text-align: center;
-  font-family: FormulaCondensedBold;
-  text-transform: uppercase;
-  font-size: 5rem;
-  line-height: 1.1;
-  z-index: 1;
+.form__control:focus + .gradient__stroke {
+  opacity: 0;
 }
-.header__row {
-  height: 4.5rem;
-}
-.header__4 {
-  margin-top: var(--padding);
-  text-align: center;
-  font-family: FormulaCondensedBold;
-  text-transform: uppercase;
-  font-size: 4rem;
-  line-height: 1.15;
-}
-.header__4 .header__row {
-  height: 3.75rem;
-}
-.alternative {
-  font-feature-settings: "salt" on;
+.gradient__stroke {
+  position: absolute;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333333;
+  border-radius: 1rem;
+  z-index: -1;
+  transition: 0.3s ease-out;
 }
 .clarification {
   max-width: 27ch;
@@ -92,11 +91,17 @@
   color: var(--body-text-color);
 }
 @media (min-width: 1200px) {
+  .form__inner {
+    width: 100% !important;
+  }
   .form__group {
     width: 100% !important;
   }
 }
 @media (min-width: 600px) {
+  .form__inner {
+    width: auto;
+  }
   .form__group {
     width: 450px;
   }

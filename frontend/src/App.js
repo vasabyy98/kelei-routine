@@ -19,9 +19,11 @@ import NamePlan from "./components/namePlan/NamePlan";
 import ChooseWorkout from "./components/chooseWorkout/ChooseWorkout";
 import ChooseExercise from "./components/chooseExercise/ChooseExercise";
 
+import DeviceSize from "./components/deviceSizeMessage/DeviceSize";
 function App() {
   return (
     <>
+      <DeviceSize />
       <Router>
         <div className="container">
           <Routes>

@@ -1,10 +1,11 @@
 .content__wrapper {
-  position: relative;
   width: 100%;
   min-height: 100vh;
   display: flex;
-  justify-content: stretch;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  padding: 0 var(--padding);
 }
 .content__wrapper__bg {
   position: relative;

@@ -1,0 +1,14 @@
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.heading__h2 {
+  font-size: 1.5rem;
+  font-family: NeueMontreal-Regular;
+}
+.subheading {
+  color: var(--body-text-color);
+  max-width: 22ch;
+}
