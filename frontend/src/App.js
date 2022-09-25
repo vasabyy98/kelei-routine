@@ -6,18 +6,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import ChooseRoutine from "./components/chooseRoutine/ChooseRoutine";
-import RoutineVolume from "./components/routineVolume/RoutineVolume";
-import AddFullbodyExercises from "./components/addFullbodyExercises/AddFullbodyExercises";
-import AddUpperSplitExercises from "./components/upperLowerSplit/AddUpperSplitExercises";
-import AddLowerSplitExercises from "./components/upperLowerSplit/AddLowerSplitExercises";
-import AddPushExercises from "./components/ppl/AddPushExercises";
-import AddPullExercises from "./components/ppl/AddPullExercises";
-import AddLegsExercises from "./components/ppl/AddLegsExercises";
-import PlanPreview from "./components/planPreview/PlanPreview";
-import NamePlan from "./components/namePlan/NamePlan";
-import ChooseWorkout from "./components/chooseWorkout/ChooseWorkout";
-import ChooseExercise from "./components/chooseExercise/ChooseExercise";
+import Exercises from "./pages/Exercises";
+import CreateExercise from "./pages/CreateExercise";
 
 import DeviceSize from "./components/deviceSizeMessage/DeviceSize";
 function App() {
@@ -32,18 +22,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/create-plan/routine" element={<ChooseRoutine />} />
-            <Route path="/create-plan/volume" element={<RoutineVolume />} />
-            <Route path="/create-plan/fullbody-exercises" element={<AddFullbodyExercises />} />
-            <Route path="/create-plan/upperSplit-exercises" element={<AddUpperSplitExercises />} />
-            <Route path="/create-plan/lowerSplit-exercises" element={<AddLowerSplitExercises />} />
-            <Route path="/create-plan/push-exercises" element={<AddPushExercises />} />
-            <Route path="/create-plan/pull-exercises" element={<AddPullExercises />} />
-            <Route path="/create-plan/legs-exercises" element={<AddLegsExercises />} />
-            <Route path="/create-plan/preview" element={<PlanPreview />} />
-            <Route path="/create-plan/name-plan" element={<NamePlan />} />
-            <Route path="/choose-workout" element={<ChooseWorkout />} />
-            <Route path="/choose-exercise" element={<ChooseExercise />} />
+            <Route path="/exercises" element={<Exercises />} />
+            <Route path="/create-exercise" element={<CreateExercise />} />
           </Routes>
         </div>
       </Router>

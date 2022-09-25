@@ -11,29 +11,21 @@ const getExercises = asyncHandler(async (req, res) => {
   res.status(200).json(exercise);
 });
 
-// @desc set workout plan
+// @desc create exercise
 // @route PUT /api/exercises
 // @access Private
 const setExercise = asyncHandler(async (req, res) => {
-  if (!req.body.name) {
+  if (!req.body.exerciseName) {
     res.status(400);
     throw new Error("Please add a new textfield");
   }
-  //   check exercise existence
-  const name = req.params.name;
-
-  const exerciseExists = await exercises.findOne({ name });
-
-  if (exerciseExists) {
-    res.status(400);
-    throw new Error("Exercise already exists");
-  }
 
   let exercise = await exercises.create({
-    name: req.body.name,
-    currentWeight: req.body.initialWeight,
+    exerciseName: req.body.exerciseName,
+    currentWeight: req.body.currentWeight,
     initialWeight: req.body.initialWeight,
     restTime: req.body.restTime,
+    rm: req.body.rm,
     user: req.user.id,
   });
 

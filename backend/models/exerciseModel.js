@@ -6,10 +6,9 @@ const exerciseSchema = mongoose.Schema({
     required: true,
     ref: "User",
   },
-  name: {
+  exerciseName: {
     type: String,
     required: true,
-    unique: true,
   },
   currentWeight: {
     type: Number,
@@ -22,6 +21,9 @@ const exerciseSchema = mongoose.Schema({
   restTime: {
     type: Number,
   },
+  rm: {
+    type: String,
+  },
 });
 
-module.exports = mongoose.model("exercises", exerciseSchema);
+module.exports = mongoose.model("Exercise", exerciseSchema);

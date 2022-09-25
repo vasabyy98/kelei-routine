@@ -1,18 +1,15 @@
-import React from "react";
-import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { logout, reset } from "../features/auth/authSlice";
-
-import { getPlans, resetPlans } from "../features/plans/planSlice";
-import { resetDraft } from "../features/plans/planDraftSlice";
-
-import { setSelectedPlan, resetSelectedPlan } from "../features/plans/selectedPlanSlice";
+import { getExercises, resetExercises } from "../features/exercises/exerciseSlice";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/home.module.css";
 import btnStyles from "../css/buttons.module.css";
+import header from "../css/header.module.css";
 import image from "../css/backgroundImage.module.css";
 
 function Home() {
@@ -20,7 +17,10 @@ function Home() {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-  const { plans, isLoading, isError, message } = useSelector((state) => state.plans);
+  const { exercises, isLoading, isError, message } = useSelector((state) => state.exercises);
+
+  const plansContainer = useRef(null);
+  const exercisesContainer = useRef(null);
 
   const onLogout = () => {
     dispatch(logout());
@@ -29,93 +29,96 @@ function Home() {
   };
 
   useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
+    // if (plans.length === 0) {
+    //   plansContainer.current.classList.add(styles.home__inner__disabled);
+    // } else {
+    //   plansContainer.current.classList.remove(styles.home__inner__disabled);
+    // }
 
     if (!user) {
       navigate("/");
     }
 
-    dispatch(getPlans());
-    dispatch(resetSelectedPlan());
+    if (isError) console.log(message);
+
+    dispatch(getExercises());
 
     return () => {
-      dispatch(resetPlans());
-      dispatch(resetDraft());
+      dispatch(resetExercises());
     };
   }, [user, navigate, isError, message, dispatch]);
 
+  const [greeting, setGreeting] = useState("Welcome back,");
+
+  let currentTime = new Date();
+  let morningStart = new Date();
+  let morningEnd = new Date();
+  let afternoonStart = new Date();
+  let afternoonEnd = new Date();
+  let eveningStart = new Date();
+  let eveningEnd = new Date();
+  let nightStart = new Date();
+  let nightEnd = new Date();
+
+  morningStart.setHours(4, 0, 0);
+  morningEnd.setHours(12, 0, 0);
+  afternoonStart.setHours(12, 0, 0);
+  afternoonEnd.setHours(17, 0, 0);
+  eveningStart.setHours(17, 0, 0);
+  eveningEnd.setHours(21, 0, 0);
+  nightStart.setHours(21, 0, 0);
+  nightEnd.setHours(4, 0, 0);
+
+  useEffect(() => {
+    if (currentTime >= morningStart && currentTime <= morningEnd) {
+      setGreeting("Good morning,");
+    } else if (currentTime >= afternoonStart && currentTime <= afternoonEnd) {
+      setGreeting("Good afternoon,");
+    } else if (currentTime >= eveningStart && currentTime <= eveningEnd) {
+      setGreeting("Good evening,");
+    } else if (currentTime >= nightStart && currentTime <= nightEnd) {
+      setGreeting("Welcome back,");
+    }
+  }, []);
+
   const onClick = (e) => {
-    const requestedPlan = plans.find(
-      (element) => element._id === e.currentTarget.attributes.planid.value
-    );
-    dispatch(setSelectedPlan(requestedPlan));
-    navigate("/choose-workout");
+    if (e.currentTarget === exercisesContainer.current) navigate("/exercises");
   };
 
   return (
     <>
       <div className={image.backgroundImageHome}></div>
       <section className={layout.content__wrapper}>
-        {isLoading !== true && (
-          <div className={layout.threeRow__grid__layout}>
-            <header className={styles.home__header}>
-              <div className={styles.home__left}>
-                <span className={styles.home__username}>{user && user.name}</span>
-              </div>
-              <div className={styles.home__right}>
-                <span onClick={onLogout} id={styles.logOut}>
-                  log out
-                </span>
-              </div>
-              <div className={styles.spacer}></div>
-            </header>
-
-            <div className={styles.home__main}>
-              <p className={styles.home__p}>
-                Are you r<span className={styles.alternative}>e</span>ady to make
-                <span className={styles.underline}>
-                  <span className={styles.alternative}> n</span>ew PRs?
-                </span>
-                <span> C</span>
-                <span className={styles.alternative}>h</span>oose your wo
-                <span className={styles.alternative}>r</span>kout plan and{" "}
-                <span className={styles.underline}>
-                  start crush
-                  <span className={styles.alternative}>i</span>ng it!
-                </span>
-              </p>
-              {plans.length > 0 ? (
-                <div className={styles.home__plans}>
-                  {plans.map((el, index) => (
-                    <div
-                      onClick={onClick}
-                      className={styles.home__plan}
-                      key={el._id}
-                      planid={el._id}
-                    >
-                      <div className={styles.home__planInner}>
-                        <span>{el.name}</span>
-                        <span className={styles.routine}>{el.routine}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <></>
-              )}
+        <div className={layout.threeRow__grid__layout}>
+          <header className={styles.home__header}>
+            <h2 className={header.heading__h2}>
+              <span>{greeting}</span>
+              <span style={{ textTransform: "capitalize" }}>{user.name}!</span>
+            </h2>
+            <p style={{ maxWidth: "unset" }} className={header.subheading}>
+              Are you ready to make new PRs?
+            </p>
+          </header>
+          <div className={styles.home__main}>
+            <div ref={plansContainer} className={`${styles.home__plan} ${styles.home__inner}`}>
+              <h2 className={header.heading__h2}>My plans↘</h2>
+              <h2 className={header.heading__h2}>0</h2>
             </div>
-            <div className={btnStyles.btns__row}>
-              <Link
-                className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}
-                to="/create-plan/routine"
-              >
-                <span>Create plan</span>
-              </Link>
+            <div
+              ref={exercisesContainer}
+              onClick={onClick}
+              className={`${styles.home__exercises} ${styles.home__inner}`}
+            >
+              <h2 className={header.heading__h2}>My exercises↘</h2>
+              <h2 className={header.heading__h2}>{exercises.length}</h2>
             </div>
           </div>
-        )}
+          <div className={btnStyles.btns__row}>
+            <button onClick={onLogout} className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
+              <span>log out</span>
+            </button>
+          </div>
+        </div>
       </section>
     </>
   );
