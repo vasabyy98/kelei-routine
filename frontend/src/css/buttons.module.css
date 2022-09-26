@@ -159,11 +159,15 @@
   }
 }
 .secondaryBtn {
-  /* background: #191919; */
-  font-family: NeueMontreal-Regular;
-  font-size: 0.9rem;
-  text-transform: none;
-  text-decoration: underline;
+  position: relative;
+  background-image: linear-gradient(
+    103.3deg,
+    rgba(252, 225, 208, 1) 0%,
+    rgba(255, 173, 214, 1) 50%,
+    rgba(162, 186, 245, 1) 100%
+  );
+  border-radius: 1rem;
+  color: var(--bg-color);
 }
 .deleteBtn {
   background: #a91921;

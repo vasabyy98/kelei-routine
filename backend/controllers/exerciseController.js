@@ -77,7 +77,7 @@ const deleteExercise = asyncHandler(async (req, res) => {
   }
 
   // make sure the logged in user matches the plan user
-  if (plan.user.toString() !== req.user.id) {
+  if (exercise.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
