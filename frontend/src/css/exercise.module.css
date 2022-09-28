@@ -7,6 +7,9 @@
   height: 0;
   margin: -1rem 0;
 }
+.exercise__details__wrapper button {
+  animation-play-state: paused;
+}
 .show {
   transform: scaleY(100%);
   height: auto;

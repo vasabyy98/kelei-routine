@@ -41,10 +41,26 @@ const deleteExercise = async (exerciseId, token) => {
   return response.data;
 };
 
+// update exercise
+const updateExercise = async (data, token) => {
+  const { id, exercise } = data;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(API_URL + id, exercise, config);
+
+  return response.data;
+};
+
 const exerciseService = {
   createExercise,
   getExercise,
   deleteExercise,
+  updateExercise,
 };
 
 export default exerciseService;

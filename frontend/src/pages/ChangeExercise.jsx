@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { createExercise } from "../features/exercises/exerciseSlice";
+import { updateExercise, resetChosenExercise } from "../features/exercises/exerciseToChangeSlice";
 
 import layout from "../css/layout.module.css";
 import btnStyles from "../css/buttons.module.css";
@@ -11,27 +11,55 @@ import header from "../css/header.module.css";
 import nav from "../css/nav.module.css";
 import styles from "../css/signIn.module.css";
 
-function CreateExercise() {
-  const [exerciseData, setExerciseData] = useState({
-    exerciseName: "",
-    weight: "",
-    rm: "8-12RM",
-  });
-
+function ChangeExercise() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const active = useRef();
+  const chosenExercise = useSelector((state) => state.chosenExercise);
 
-  useEffect(() => {
-    if (active.current.value === "8-12RM") {
-      active.current.checked = true;
-    } else {
-      active.current.checked = false;
-    }
-  }, [rm]);
+  const [exerciseData, setExerciseData] = useState({
+    exerciseName: chosenExercise.exerciseName,
+    weight: chosenExercise.currentWeight,
+    rm: chosenExercise.rm,
+  });
 
   const { exerciseName, weight, rm } = exerciseData;
+
+  const first = useRef();
+  const second = useRef();
+  const third = useRef();
+  const fourth = useRef();
+
+  useEffect(() => {
+    if (chosenExercise.exerciseName === "") {
+      navigate("/exercises");
+    }
+
+    if (first.current.value === rm) {
+      first.current.checked = true;
+      second.current.checked = false;
+      third.current.checked = false;
+      fourth.current.checked = false;
+    }
+    if (second.current.value === rm) {
+      second.current.checked = true;
+      first.current.checked = false;
+      third.current.checked = false;
+      fourth.current.checked = false;
+    }
+    if (third.current.value === rm) {
+      third.current.checked = true;
+      second.current.checked = false;
+      first.current.checked = false;
+      fourth.current.checked = false;
+    }
+    if (fourth.current.value === rm) {
+      fourth.current.checked = true;
+      second.current.checked = false;
+      third.current.checked = false;
+      first.current.checked = false;
+    }
+  }, [rm]);
 
   const onChange = (e) => {
     setExerciseData((prevState) => ({
@@ -45,13 +73,14 @@ function CreateExercise() {
 
     const exercise = {
       exerciseName: exerciseName,
-      initialWeight: weight,
       currentWeight: weight,
-      restTime: 0,
       rm: rm,
     };
 
-    dispatch(createExercise(exercise));
+    const id = chosenExercise.exercise_id;
+
+    dispatch(updateExercise({ id, exercise }));
+    dispatch(resetChosenExercise());
     navigate("/exercises");
   };
 
@@ -73,7 +102,7 @@ function CreateExercise() {
           </nav>
           <div className={styles.form__inner}>
             <header className={header.header}>
-              <h2 className={header.heading__h2}>Create new exercise</h2>
+              <h2 className={header.heading__h2}>Change exercise</h2>
               <p style={{ maxWidth: "unset" }} className={header.subheading}>
                 Set exercise name, weight and choose the repetition range.
               </p>
@@ -108,6 +137,7 @@ function CreateExercise() {
                   <span>3-5RM</span>
                 </div>
                 <input
+                  ref={first}
                   onClick={onClick}
                   type="radio"
                   value="3-5RM"
@@ -122,7 +152,7 @@ function CreateExercise() {
                   <span>8-12RM</span>
                 </div>
                 <input
-                  ref={active}
+                  ref={second}
                   onClick={onClick}
                   type="radio"
                   value="8-12RM"
@@ -137,6 +167,7 @@ function CreateExercise() {
                   <span>8-15RM</span>
                 </div>
                 <input
+                  ref={third}
                   onClick={onClick}
                   type="radio"
                   value="8-15RM"
@@ -151,6 +182,7 @@ function CreateExercise() {
                   <span>15-20RM</span>
                 </div>
                 <input
+                  ref={fourth}
                   onClick={onClick}
                   type="radio"
                   value="15-20RM"
@@ -170,7 +202,7 @@ function CreateExercise() {
           </div>
           <div className={btnStyles.btns__row}>
             <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-              <span>create exercise</span>
+              <span>change exercise</span>
             </button>
           </div>
         </form>
@@ -179,4 +211,4 @@ function CreateExercise() {
   );
 }
 
-export default CreateExercise;
+export default ChangeExercise;

@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Exercises from "./pages/Exercises";
 import CreateExercise from "./pages/CreateExercise";
+import ChangeExercise from "./pages/ChangeExercise";
 
 import DeviceSize from "./components/deviceSizeMessage/DeviceSize";
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/create-exercise" element={<CreateExercise />} />
+            <Route path="/change-exercise" element={<ChangeExercise />} />
           </Routes>
         </div>
       </Router>

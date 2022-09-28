@@ -17,7 +17,7 @@ function Home() {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-  const { exercises, isLoading, isError, message } = useSelector((state) => state.exercises);
+  const { exercises, isError, message } = useSelector((state) => state.exercises);
 
   const plansContainer = useRef(null);
   const exercisesContainer = useRef(null);

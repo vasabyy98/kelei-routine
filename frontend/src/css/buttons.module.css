@@ -166,14 +166,14 @@
     rgba(255, 173, 214, 1) 50%,
     rgba(162, 186, 245, 1) 100%
   );
+  background-size: 200% 200%;
+  animation: gradient 10s ease infinite;
+  animation-play-state: running;
   border-radius: 1rem;
   color: var(--bg-color);
 }
-.deleteBtn {
-  background: #a91921;
-}
-.disabledBtn {
-  pointer-events: none;
+.animate__btn {
+  animation-play-state: running !important;
 }
 
 @media (min-width: 1200px) {

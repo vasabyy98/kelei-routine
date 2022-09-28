@@ -1,12 +1,12 @@
 const asyncHandler = require("express-async-handler");
-const exercises = require("../models/exerciseModel");
+const Exercises = require("../models/exerciseModel");
 const User = require("../models/userModel");
 
 // @desc get exercises
 // @route GET /api/exercises
 // @access Private
 const getExercises = asyncHandler(async (req, res) => {
-  const exercise = await exercises.find({ user: req.user.id });
+  const exercise = await Exercises.find({ user: req.user.id });
 
   res.status(200).json(exercise);
 });
@@ -20,7 +20,7 @@ const setExercise = asyncHandler(async (req, res) => {
     throw new Error("Please add a new textfield");
   }
 
-  let exercise = await exercises.create({
+  let exercise = await Exercises.create({
     exerciseName: req.body.exerciseName,
     currentWeight: req.body.currentWeight,
     initialWeight: req.body.initialWeight,
@@ -35,35 +35,39 @@ const setExercise = asyncHandler(async (req, res) => {
 // @desc update workout plan
 // @route PUT /api/exercises
 // @access Private
-const updateWorkoutPlan = asyncHandler(async (req, res) => {
-  // const plan = await workoutPlan.findById(req.params.id);
-  // if (!plan) {
-  //   res.status(400);
-  //   throw new Error("Plan not found.");
-  // }
-  // // check for user
-  // if (!req.user) {
-  //   res.status(401);
-  //   throw new Error("User not found");
-  // }
-  // // make sure the logged in user matches the plan user
-  // if (plan.user.toString() !== req.user.id) {
-  //   res.status(401);
-  //   throw new Error("User not authorized");
-  // }
-  // const updatedPlan = await workoutPlan.findByIdAndUpdate(
-  //   req.params.id,
-  //   { exercises: objExercises, name: req.body.name },
-  //   { new: true }
-  // );
-  // res.status(200).json(updatedPlan);
+const updateExercise = asyncHandler(async (req, res) => {
+  const exercise = await Exercises.findById(req.params.id);
+  if (!exercise) {
+    res.status(400);
+    throw new Error("Exercise not found.");
+  }
+  // check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+  // make sure the logged in user matches the plan user
+  if (exercise.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  const update = {
+    exerciseName: req.body.exerciseName,
+    currentWeight: req.body.currentWeight,
+    rm: req.body.rm,
+  };
+
+  const updatedExercise = await Exercises.findByIdAndUpdate(req.params.id, update);
+
+  res.status(200).json(updatedExercise);
 });
 
 // @desc delete exercise
 // @route DELETE /api/exercises
 // @access Private
 const deleteExercise = asyncHandler(async (req, res) => {
-  const exercise = await exercises.findById(req.params.id);
+  const exercise = await Exercises.findById(req.params.id);
 
   if (!exercise) {
     res.status(400);
@@ -91,4 +95,5 @@ module.exports = {
   getExercises,
   setExercise,
   deleteExercise,
+  updateExercise,
 };
