@@ -15,7 +15,7 @@ const createPlan = async (planData, token) => {
   return response.data;
 };
 
-// get user exercises
+// get user plans
 const getPlans = async (token) => {
   const config = {
     headers: {
@@ -28,37 +28,39 @@ const getPlans = async (token) => {
   return response.data;
 };
 
-// // delete exercise
-// const deleteExercise = async (exerciseId, token) => {
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
+// delete plan
+const deletePlan = async (planId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-//   const response = await axios.delete(API_URL + exerciseId, config);
+  const response = await axios.delete(API_URL + planId, config);
 
-//   return response.data;
-// };
+  return response.data;
+};
 
-// // update exercise
-// const updateExercise = async (data, token) => {
-//   const { id, exercise } = data;
+// update plan
+const updatePlan = async (data, token) => {
+  const { id, plan } = data;
 
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-//   const response = await axios.put(API_URL + id, exercise, config);
+  const response = await axios.put(API_URL + id, plan, config);
 
-//   return response.data;
-// };
+  return response.data;
+};
 
 const planService = {
   getPlans,
   createPlan,
+  deletePlan,
+  updatePlan,
 };
 
 export default planService;

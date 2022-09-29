@@ -13,19 +13,16 @@ function Exercises() {
   const dispatch = useDispatch();
 
   const { exercises, isError, message } = useSelector((state) => state.exercises);
-  const { isSuccess } = useSelector((state) => state.chosenExercise);
 
   useEffect(() => {
-    if (isSuccess) {
-      if (isError) console.log(message);
+    if (isError) console.log(message);
 
-      dispatch(getExercises());
+    dispatch(getExercises());
 
-      return () => {
-        dispatch(resetExercises());
-      };
-    }
-  }, [isError, message, dispatch, isSuccess]);
+    return () => {
+      dispatch(resetExercises());
+    };
+  }, [isError, message, dispatch]);
   return (
     <>
       <section className={layout.content__wrapper}>

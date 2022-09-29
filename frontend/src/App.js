@@ -11,6 +11,7 @@ import CreateExercise from "./pages/CreateExercise";
 import ChangeExercise from "./pages/ChangeExercise";
 import Plans from "./pages/Plans";
 import CreatePlan from "./pages/CreatePlan";
+import ChangePlan from "./pages/ChangePlan";
 import DeviceSize from "./components/deviceSizeMessage/DeviceSize";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/change-exercise" element={<ChangeExercise />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/create-plan" element={<CreatePlan />} />
+            <Route path="/change-plan" element={<ChangePlan />} />
           </Routes>
         </div>
       </Router>

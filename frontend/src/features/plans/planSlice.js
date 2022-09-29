@@ -39,20 +39,20 @@ export const getPlans = createAsyncThunk("plans/getAll", async (_, thunkAPI) => 
   }
 });
 
-// // delete exercise
-// export const deleteExercise = createAsyncThunk("exercises/delete", async (id, thunkAPI) => {
-//   try {
-//     const token = thunkAPI.getState().auth.user.token;
-//     return await exerciseService.deleteExercise(id, token);
-//   } catch (error) {
-//     const message =
-//       (error.response && error.response.data && error.response.data.message) ||
-//       error.message ||
-//       error.toString();
+// delete plan
+export const deletePlan = createAsyncThunk("plans/delete", async (id, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token;
+    return await planService.deletePlan(id, token);
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
 
-//     return thunkAPI.rejectWithValue(message);
-//   }
-// });
+    return thunkAPI.rejectWithValue(message);
+  }
+});
 
 export const planSlice = createSlice({
   name: "exercise",
@@ -84,6 +84,19 @@ export const planSlice = createSlice({
         state.plans = action.payload;
       })
       .addCase(getPlans.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deletePlan.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deletePlan.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.plans = state.plans.filter((plan) => plan._id !== action.payload.id);
+      })
+      .addCase(deletePlan.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

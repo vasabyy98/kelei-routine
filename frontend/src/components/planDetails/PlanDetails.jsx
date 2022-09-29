@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteExercise } from "../../features/exercises/exerciseSlice";
-import { setCurrentExercise } from "../../features/exercises/exerciseToChangeSlice";
+import { deletePlan } from "../../features/plans/planSlice";
+import { setCurrentPlan } from "../../features/plans/planToChangeSlice";
 
 import layout from "../../css/layout.module.css";
 import styles from "../../css/exercise.module.css";
@@ -16,26 +16,25 @@ function PlanDetails({ plan }) {
   const showHideInfo = (e) => {
     const target = e.currentTarget.nextElementSibling;
 
-    // const buttons = e.currentTarget.parentElement.children[1].children[1].children;
-    // const [btn1, btn2] = buttons;
-    console.log(buttons);
+    const buttons = e.currentTarget.parentElement.children[1].children[1].children;
+    const [btn1, btn2] = buttons;
 
     if (target.classList.length === 1) {
       target.classList.add(styles.show);
       e.currentTarget.children[1].textContent = "Hide info↑";
-      // btn1.classList.add(btnStyles.animate__btn);
-      // btn2.classList.add(btnStyles.animate__btn);
+      btn1.classList.add(btnStyles.animate__btn);
+      btn2.classList.add(btnStyles.animate__btn);
     } else {
       target.classList.remove(styles.show);
       e.currentTarget.children[1].textContent = "Show info↓";
-      // btn1.classList.remove(btnStyles.animate__btn);
-      // btn2.classList.remove(btnStyles.animate__btn);
+      btn1.classList.remove(btnStyles.animate__btn);
+      btn2.classList.remove(btnStyles.animate__btn);
     }
   };
 
   const onClick = () => {
-    // dispatch(setCurrentExercise(exercise));
-    navigate("/change-exercise");
+    dispatch(setCurrentPlan(plan));
+    navigate("/change-plan");
   };
   return (
     <>
@@ -48,7 +47,7 @@ function PlanDetails({ plan }) {
           <div className={styles.exercise__details}>
             <div className={styles.exercise__inner}>
               <span>Routine type:</span>
-              <span style={{ textTransform: "capitalize" }}>{plan.routine}</span>
+              <span style={{ textTransform: "uppercase" }}>{plan.routine}</span>
             </div>
             <div className={styles.exercise__inner}>
               <span>Volume:</span>
@@ -57,13 +56,13 @@ function PlanDetails({ plan }) {
           </div>
           <div className={btnStyles.btns__col}>
             <button onClick={onClick} className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-              <span>edit exercise</span>
+              <span>edit plan</span>
             </button>
             <button
-              // onClick={() => dispatch(deleteExercise(exercise._id))}
+              onClick={() => dispatch(deletePlan(plan._id))}
               className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}
             >
-              <span>remove exercise</span>
+              <span>remove plan</span>
             </button>
           </div>
         </div>

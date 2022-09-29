@@ -5,7 +5,7 @@
   gap: var(--gap-children);
   transform: scaleY(0);
   height: 0;
-  margin: -1rem 0;
+  /* margin: -1rem 0; */
 }
 .exercise__details__wrapper button {
   animation-play-state: paused;
@@ -13,7 +13,7 @@
 .show {
   transform: scaleY(100%);
   height: auto;
-  margin: 0;
+  /* margin: 0; */
 }
 .exercise__details {
   width: 100%;
@@ -33,7 +33,7 @@
 }
 .exercise__name {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: baseline;
   text-transform: capitalize;
 }

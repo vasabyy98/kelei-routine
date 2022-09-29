@@ -97,11 +97,13 @@ const updateWorkoutPlan = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 
-  const updatedPlan = await workoutPlan.findByIdAndUpdate(
-    req.params.id,
-    { exercises: objExercises, name: req.body.name },
-    { new: true }
-  );
+  const update = {
+    planName: req.body.planName,
+    routine: req.body.routine,
+    volume: req.body.volume,
+  };
+
+  const updatedPlan = await workoutPlan.findByIdAndUpdate(req.params.id, update);
 
   res.status(200).json(updatedPlan);
 });
