@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { logout, reset } from "../features/auth/authSlice";
 import { getExercises, resetExercises } from "../features/exercises/exerciseSlice";
+import { getPlans } from "../features/plans/planSlice";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/home.module.css";
@@ -18,9 +19,10 @@ function Home() {
 
   const { user } = useSelector((state) => state.auth);
   const { exercises, isError, message } = useSelector((state) => state.exercises);
+  const { plans } = useSelector((state) => state.plans);
 
-  const plansContainer = useRef(null);
-  const exercisesContainer = useRef(null);
+  const plansLink = useRef(null);
+  const exercisesLink = useRef(null);
 
   const onLogout = () => {
     dispatch(logout());
@@ -42,6 +44,7 @@ function Home() {
     if (isError) console.log(message);
 
     dispatch(getExercises());
+    dispatch(getPlans());
 
     return () => {
       dispatch(resetExercises());
@@ -82,7 +85,8 @@ function Home() {
   }, []);
 
   const onClick = (e) => {
-    if (e.currentTarget === exercisesContainer.current) navigate("/exercises");
+    if (e.currentTarget === exercisesLink.current) navigate("/exercises");
+    if (e.currentTarget === plansLink.current) navigate("/plans");
   };
 
   return (
@@ -100,12 +104,16 @@ function Home() {
             </p>
           </header>
           <div className={styles.home__main}>
-            <div ref={plansContainer} className={`${styles.home__plan} ${styles.home__inner}`}>
+            <div
+              onClick={onClick}
+              ref={plansLink}
+              className={`${styles.home__plan} ${styles.home__inner}`}
+            >
               <h2 className={header.heading__h2}>My plans↘</h2>
-              <h2 className={header.heading__h2}>0</h2>
+              <h2 className={header.heading__h2}>{plans.length}</h2>
             </div>
             <div
-              ref={exercisesContainer}
+              ref={exercisesLink}
               onClick={onClick}
               className={`${styles.home__exercises} ${styles.home__inner}`}
             >

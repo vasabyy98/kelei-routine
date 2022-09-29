@@ -105,6 +105,11 @@
 .form__control__radio:checked ~ .selected {
   opacity: 1;
 }
+.clarification {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 @media (min-width: 1200px) {
   .form__inner {
     width: 100% !important;

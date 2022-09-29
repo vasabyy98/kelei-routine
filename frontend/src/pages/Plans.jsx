@@ -1,31 +1,28 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getExercises, resetExercises } from "../features/exercises/exerciseSlice";
+import { getPlans, resetPlans } from "../features/plans/planSlice";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/exercise.module.css";
 import btnStyles from "../css/buttons.module.css";
 import nav from "../css/nav.module.css";
-import ExerciseDetails from "../components/exerciseDetails/ExerciseDetails";
+import PlanDetails from "../components/planDetails/PlanDetails";
 
-function Exercises() {
+function Plans() {
   const dispatch = useDispatch();
 
-  const { exercises, isError, message } = useSelector((state) => state.exercises);
-  const { isSuccess } = useSelector((state) => state.chosenExercise);
+  const { plans, isError, message } = useSelector((state) => state.plans);
 
   useEffect(() => {
-    if (isSuccess) {
-      if (isError) console.log(message);
+    if (isError) console.log(message);
 
-      dispatch(getExercises());
+    dispatch(getPlans());
 
-      return () => {
-        dispatch(resetExercises());
-      };
-    }
-  }, [isError, message, dispatch, isSuccess]);
+    return () => {
+      dispatch(resetPlans());
+    };
+  }, [isError, message, dispatch]);
   return (
     <>
       <section className={layout.content__wrapper}>
@@ -39,13 +36,13 @@ function Exercises() {
             style={{ justifyContent: "unset" }}
             className={`${layout.flex__layout} ${styles.exercises__wrapper}`}
           >
-            {exercises.map((exercise, i) => (
-              <ExerciseDetails key={exercise._id} exercise={exercise} />
+            {plans.map((plan) => (
+              <PlanDetails key={plan._id} plan={plan} />
             ))}
           </div>
           <div className={btnStyles.btns__row}>
-            <Link className={`${btnStyles.btn} ${btnStyles.primaryBtn}`} to="/create-exercise">
-              <span>create new exercise</span>
+            <Link className={`${btnStyles.btn} ${btnStyles.primaryBtn}`} to="/create-plan">
+              <span>create new plan</span>
             </Link>
           </div>
         </div>
@@ -54,4 +51,4 @@ function Exercises() {
   );
 }
 
-export default Exercises;
+export default Plans;

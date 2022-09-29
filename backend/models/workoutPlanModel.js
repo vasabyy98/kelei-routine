@@ -6,7 +6,7 @@ const workoutPlanSchema = mongoose.Schema({
     required: true,
     ref: "User",
   },
-  name: {
+  planName: {
     type: String,
     required: true,
     unique: true,
@@ -19,41 +19,42 @@ const workoutPlanSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  fullbody: [
-    {
-      exercise: String,
-    },
-  ],
-  upperSplit: [
+  exercises: [
     {
       _id: false,
-      exercise: String,
+      type: Array,
     },
   ],
-  lowerSplit: [
-    {
-      _id: false,
-      exercise: String,
-    },
-  ],
-  pushDay: [
-    {
-      _id: false,
-      exercise: String,
-    },
-  ],
-  pullDay: [
-    {
-      _id: false,
-      exercise: String,
-    },
-  ],
-  legsDay: [
-    {
-      _id: false,
-      exercise: String,
-    },
-  ],
+  // upperSplit: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //   },
+  // ],
+  // lowerSplit: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //   },
+  // ],
+  // pushDay: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //   },
+  // ],
+  // pullDay: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //   },
+  // ],
+  // legsDay: [
+  //   {
+  //     _id: false,
+  //     exercise: String,
+  //   },
+  // ],
 });
 
 module.exports = mongoose.model("workoutPlan", workoutPlanSchema);

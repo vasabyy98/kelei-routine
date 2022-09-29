@@ -38,7 +38,7 @@ function ExerciseDetails({ exercise }) {
   };
   return (
     <>
-      <div style={{ height: "unset" }} className={layout.flex__layout}>
+      <div key={exercise._id} style={{ height: "unset" }} className={layout.flex__layout}>
         <header onClick={showHideInfo} style={{ cursor: "pointer" }} className={header.header}>
           <h2 className={`${header.heading__h2} ${styles.exercise__name}`}>
             {exercise.exerciseName}

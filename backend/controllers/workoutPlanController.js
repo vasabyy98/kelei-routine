@@ -15,15 +15,14 @@ const getWorkoutPlan = asyncHandler(async (req, res) => {
 // @route PUT /api/goals
 // @access Private
 const setWorkoutPlan = asyncHandler(async (req, res) => {
-  if (!req.body.name) {
+  if (!req.body.planName) {
     res.status(400);
     throw new Error("Please add a new textfield");
   }
   //   check plan existence
-  const name = req.params.name;
+  const planName = req.body.planName;
 
-  const planExists = await workoutPlan.findOne({ name });
-
+  const planExists = await workoutPlan.findOne({ planName });
   if (planExists) {
     res.status(400);
     throw new Error("Plan already exists");
@@ -31,38 +30,36 @@ const setWorkoutPlan = asyncHandler(async (req, res) => {
 
   let plan;
 
-  if (req.body.routineType === "full body") {
-    plan = await workoutPlan.create({
-      name: req.body.name,
-      routine: req.body.routineType,
-      volume: req.body.volume,
-      fullbody: req.body.fullbodyExercises,
-      user: req.user.id,
-    });
-  }
+  plan = await workoutPlan.create({
+    planName: req.body.planName,
+    routine: req.body.routine,
+    volume: req.body.volume,
+    exercises: req.body.exercises,
+    user: req.user.id,
+  });
 
-  if (req.body.routineType === "a/b split") {
-    plan = await workoutPlan.create({
-      name: req.body.name,
-      routine: req.body.routineType,
-      volume: req.body.volume,
-      upperSplit: req.body.upperSplitExercises,
-      lowerSplit: req.body.lowerSplitExercises,
-      user: req.user.id,
-    });
-  }
+  // if (req.body.routineType === "a/b split") {
+  //   plan = await workoutPlan.create({
+  //     name: req.body.name,
+  //     routine: req.body.routineType,
+  //     volume: req.body.volume,
+  //     upperSplit: req.body.upperSplitExercises,
+  //     lowerSplit: req.body.lowerSplitExercises,
+  //     user: req.user.id,
+  //   });
+  // }
 
-  if (req.body.routineType === "ppl") {
-    plan = await workoutPlan.create({
-      name: req.body.name,
-      routine: req.body.routineType,
-      volume: req.body.volume,
-      pushDay: req.body.pushDayExercises,
-      pullDay: req.body.pullDayExercises,
-      legsDay: req.body.legsDayExercises,
-      user: req.user.id,
-    });
-  }
+  // if (req.body.routineType === "ppl") {
+  //   plan = await workoutPlan.create({
+  //     name: req.body.name,
+  //     routine: req.body.routineType,
+  //     volume: req.body.volume,
+  //     pushDay: req.body.pushDayExercises,
+  //     pullDay: req.body.pullDayExercises,
+  //     legsDay: req.body.legsDayExercises,
+  //     user: req.user.id,
+  //   });
+  // }
 
   // plan = await workoutPlan.create({
   //   name: req.body.name,
