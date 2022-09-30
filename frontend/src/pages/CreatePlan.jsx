@@ -6,6 +6,10 @@ import { getExercises } from "../features/exercises/exerciseSlice";
 
 import { createPlan } from "../features/plans/planSlice";
 
+import FullbodySplit from "../components/planSplits/FullbodySplit";
+import ABSPlit from "../components/planSplits/ABSplit";
+import PPLSplit from "../components/planSplits/PPLSplit";
+
 import layout from "../css/layout.module.css";
 import btnStyles from "../css/buttons.module.css";
 import header from "../css/header.module.css";
@@ -13,8 +17,6 @@ import nav from "../css/nav.module.css";
 import styles from "../css/signIn.module.css";
 
 function CreatePlan() {
-  const { exercises } = useSelector((state) => state.exercises);
-
   const [exerciseData, setExerciseData] = useState({
     planName: "",
     routine: "fullbody",
@@ -22,7 +24,12 @@ function CreatePlan() {
   });
   const { planName, routine, volume } = exerciseData;
 
-  const [selectedExercises, setSelectedExercises] = useState([]);
+  const [fullbodyExercises, setFullbodyExercises] = useState([]);
+  const [upperExercises, setUpperExercises] = useState([]);
+  const [lowerExercises, setLowerExercises] = useState([]);
+  const [pushExercises, setPushExercises] = useState([]);
+  const [pullExercises, setPullExercises] = useState([]);
+  const [legsExercises, setLegsExercises] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,11 +58,25 @@ function CreatePlan() {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    const exercisesToPush = {};
+
+    if (routine === "fullbody") exercisesToPush.fullbody = fullbodyExercises;
+
+    if (routine === "a/b split") {
+      exercisesToPush.upperSplit = upperExercises;
+      exercisesToPush.lowerSplit = lowerExercises;
+    }
+    if (routine === "ppl") {
+      exercisesToPush.pushSplit = pushExercises;
+      exercisesToPush.pullSllit = pullExercises;
+      exercisesToPush.legsSplit = legsExercises;
+    }
+
     const plan = {
       planName: planName,
       routine: routine,
       volume: volume,
-      exercises: selectedExercises,
+      exercises: exercisesToPush,
     };
 
     dispatch(createPlan(plan));
@@ -74,16 +95,6 @@ function CreatePlan() {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleCheckboxChange = (e) => {
-    if (e.target.checked === true) {
-      setSelectedExercises([...selectedExercises, e.target.value]);
-    } else {
-      setSelectedExercises([
-        ...selectedExercises.filter((exercise) => exercise !== e.target.value),
-      ]);
-    }
-  };
-
   return (
     <>
       <section className={layout.content__wrapper}>
@@ -218,27 +229,30 @@ function CreatePlan() {
             </div>
           </div>
           <div className={styles.form__inner}>
-            <header className={header.header}>
-              <h2 className={header.heading__h2}>Choose full body exercises</h2>
-            </header>
-            <div className={styles.input__wrapper}>
-              {exercises.map((exercise) => (
-                <div className={styles.form__group}>
-                  <div className={`${styles.form__control}`}>
-                    <span>{exercise.exerciseName}</span>
-                  </div>
-                  <input
-                    onClick={handleCheckboxChange}
-                    type="checkbox"
-                    value={exercise._id}
-                    name="selectedExercises"
-                    className={styles.form__control__radio}
-                  />
-                  <div className={styles.gradient__stroke}></div>
-                  <div className={styles.selected}>selected</div>
-                </div>
-              ))}
-            </div>
+            {routine === "fullbody" && (
+              <FullbodySplit
+                setFullbodyExercises={setFullbodyExercises}
+                fullbodyExercises={fullbodyExercises}
+              />
+            )}
+            {routine === "a/b split" && (
+              <ABSPlit
+                setUpperExercises={setUpperExercises}
+                setLowerExercises={setLowerExercises}
+                lowerExercises={lowerExercises}
+                upperExercises={upperExercises}
+              />
+            )}
+            {routine === "ppl" && (
+              <PPLSplit
+                setPushExercises={setPushExercises}
+                setPullExercises={setPullExercises}
+                setLegsExercises={setLegsExercises}
+                pushExercises={pushExercises}
+                pullExercises={pullExercises}
+                legsExercises={legsExercises}
+              />
+            )}
           </div>
           <div className={styles.form__inner}>
             <header className={header.header}>

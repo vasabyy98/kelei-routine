@@ -4,7 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getExercises } from "../features/exercises/exerciseSlice";
-import { updatePlan, resetChosenPlan } from "../features/plans/planToChangeSlice";
+import { updatePlan } from "../features/plans/planToChangeSlice";
+
+import FullbodySplit from "../components/planSplits/FullbodySplit";
+import ABSPlit from "../components/planSplits/ABSplit";
+import PPLSplit from "../components/planSplits/PPLSplit";
 
 import layout from "../css/layout.module.css";
 import btnStyles from "../css/buttons.module.css";
@@ -16,10 +20,15 @@ function ChangePlan() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { exercises } = useSelector((state) => state.exercises);
   const chosenPlan = useSelector((state) => state.chosenPlan);
 
-  const [selectedExercises, setSelectedExercises] = useState([]);
+  const [fullbodyExercises, setFullbodyExercises] = useState([]);
+  const [upperExercises, setUpperExercises] = useState([]);
+  const [lowerExercises, setLowerExercises] = useState([]);
+  const [pushExercises, setPushExercises] = useState([]);
+  const [pullExercises, setPullExercises] = useState([]);
+  const [legsExercises, setLegsExercises] = useState([]);
+
   const [planData, setPlanData] = useState({
     planName: chosenPlan.planName,
     routine: chosenPlan.routine,
@@ -35,20 +44,6 @@ function ChangePlan() {
   const firstVolume = useRef();
   const secondVolume = useRef();
   const thirdVolume = useRef();
-
-  // const exerciseId = [];
-
-  // exercises.forEach((exercise) => {
-  //   exerciseId.push(exercise._id);
-  // });
-
-  // const chosenExercisesId = [];
-
-  // chosenPlan.exercises.forEach((exercise) => {
-  //   chosenExercisesId.push(exercise._id);
-  // });
-
-  // console.log(chosenPlan.exercises[0]);
 
   useEffect(() => {
     if (chosenPlan.planName === "") {
@@ -81,17 +76,30 @@ function ChangePlan() {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    const exercisesToPush = {};
+
+    if (routine === "fullbody") exercisesToPush.fullbody = fullbodyExercises;
+
+    if (routine === "a/b split") {
+      exercisesToPush.upperSplit = upperExercises;
+      exercisesToPush.lowerSplit = lowerExercises;
+    }
+    if (routine === "ppl") {
+      exercisesToPush.pushSplit = pushExercises;
+      exercisesToPush.pullSllit = pullExercises;
+      exercisesToPush.legsSplit = legsExercises;
+    }
+
     const plan = {
       planName: planName,
       routine: routine,
       volume: volume,
-      exercises: selectedExercises,
+      exercises: exercisesToPush,
     };
 
     const id = chosenPlan.plan_id;
 
     dispatch(updatePlan({ id, plan }));
-    dispatch(resetChosenPlan());
     navigate("/plans");
   };
   const onClick = (e) => {
@@ -100,16 +108,6 @@ function ChangePlan() {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleCheckboxChange = (e) => {
-    if (e.target.checked === true) {
-      setSelectedExercises([...selectedExercises, e.target.value]);
-    } else {
-      setSelectedExercises([
-        ...selectedExercises.filter((exercise) => exercise !== e.target.value),
-      ]);
-    }
-  };
-
   return (
     <>
       <section className={layout.content__wrapper}>
@@ -244,27 +242,30 @@ function ChangePlan() {
             </div>
           </div>
           <div className={styles.form__inner}>
-            <header className={header.header}>
-              <h2 className={header.heading__h2}>Choose full body exercises</h2>
-            </header>
-            <div className={styles.input__wrapper}>
-              {exercises.map((exercise) => (
-                <div key={exercise._id} className={styles.form__group}>
-                  <div className={`${styles.form__control}`}>
-                    <span>{exercise.exerciseName}</span>
-                  </div>
-                  <input
-                    onClick={handleCheckboxChange}
-                    type="checkbox"
-                    value={exercise._id}
-                    name="selectedExercises"
-                    className={styles.form__control__radio}
-                  />
-                  <div className={styles.gradient__stroke}></div>
-                  <div className={styles.selected}>selected</div>
-                </div>
-              ))}
-            </div>
+            {routine === "fullbody" && (
+              <FullbodySplit
+                setFullbodyExercises={setFullbodyExercises}
+                fullbodyExercises={fullbodyExercises}
+              />
+            )}
+            {routine === "a/b split" && (
+              <ABSPlit
+                setUpperExercises={setUpperExercises}
+                setLowerExercises={setLowerExercises}
+                lowerExercises={lowerExercises}
+                upperExercises={upperExercises}
+              />
+            )}
+            {routine === "ppl" && (
+              <PPLSplit
+                setPushExercises={setPushExercises}
+                setPullExercises={setPullExercises}
+                setLegsExercises={setLegsExercises}
+                pushExercises={pushExercises}
+                pullExercises={pullExercises}
+                legsExercises={legsExercises}
+              />
+            )}
           </div>
           <div className={styles.form__inner}>
             <header className={header.header}>

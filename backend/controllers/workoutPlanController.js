@@ -40,8 +40,8 @@ const setWorkoutPlan = asyncHandler(async (req, res) => {
 
   // if (req.body.routineType === "a/b split") {
   //   plan = await workoutPlan.create({
-  //     name: req.body.name,
-  //     routine: req.body.routineType,
+  //     planName: req.body.planName,
+  //     routine: req.body.routine,
   //     volume: req.body.volume,
   //     upperSplit: req.body.upperSplitExercises,
   //     lowerSplit: req.body.lowerSplitExercises,
@@ -51,8 +51,8 @@ const setWorkoutPlan = asyncHandler(async (req, res) => {
 
   // if (req.body.routineType === "ppl") {
   //   plan = await workoutPlan.create({
-  //     name: req.body.name,
-  //     routine: req.body.routineType,
+  //     planName: req.body.planName,
+  //     routine: req.body.routine,
   //     volume: req.body.volume,
   //     pushDay: req.body.pushDayExercises,
   //     pullDay: req.body.pullDayExercises,
@@ -101,8 +101,9 @@ const updateWorkoutPlan = asyncHandler(async (req, res) => {
     planName: req.body.planName,
     routine: req.body.routine,
     volume: req.body.volume,
+    exercises: req.body.exercises,
   };
-
+  console.log(update);
   const updatedPlan = await workoutPlan.findByIdAndUpdate(req.params.id, update);
 
   res.status(200).json(updatedPlan);

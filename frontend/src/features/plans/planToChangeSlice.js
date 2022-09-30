@@ -6,7 +6,7 @@ const initialState = {
   planName: "",
   routine: "",
   volume: "",
-  exercises: [],
+  exercises: {},
   plan_id: "",
   isError: false,
   isLoading: false,
@@ -38,7 +38,7 @@ export const chosenPlanSlice = createSlice({
       state.routine = action.payload.routine;
       state.volume = action.payload.volume;
       state.plan_id = action.payload._id;
-      state.exercises.push(action.payload.exercises);
+      state.exercises = action.payload.exercises;
     },
   },
   extraReducers: (builder) => {

@@ -40,6 +40,18 @@
   flex-direction: column;
   gap: 2px;
 }
+.exercise__wrapper {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 4vh);
+  height: 25vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2vh;
+}
 .form__group {
   position: relative;
   width: 100%;

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlans, resetPlans } from "../features/plans/planSlice";
+import { resetChosenPlan } from "../features/plans/planToChangeSlice";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/exercise.module.css";
@@ -18,6 +19,7 @@ function Plans() {
     if (isError) console.log(message);
 
     dispatch(getPlans());
+    dispatch(resetChosenPlan());
 
     return () => {
       dispatch(resetPlans());

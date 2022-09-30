@@ -22,9 +22,15 @@ const workoutPlanSchema = mongoose.Schema({
   exercises: [
     {
       _id: false,
-      type: Array,
+      type: Object,
     },
   ],
+  // fullbody: [
+  //   {
+  //     _id: false,
+  //     type: Array,
+  //   },
+  // ],
   // upperSplit: [
   //   {
   //     _id: false,
