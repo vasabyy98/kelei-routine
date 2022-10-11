@@ -10,17 +10,9 @@ import btnStyles from "../../css/buttons.module.css";
 import header from "../../css/header.module.css";
 import { useEffect } from "react";
 
-function PlanDetails({ plan, actionContainer, actionContainerShow, setActionContainerShow }) {
+function PlanDetails({ plan, setActionContainerShow }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (actionContainerShow) {
-  //     actionContainer.current.classList.add(layout.action__container__visible);
-  //   } else {
-  //     actionContainer.current.classList.remove(layout.action__container__visible);
-  //   }
-  // }, [actionContainerShow]);
 
   const showHideInfo = (e) => {
     const target = e.currentTarget.nextElementSibling;
