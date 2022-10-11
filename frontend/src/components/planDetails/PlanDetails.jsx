@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deletePlan } from "../../features/plans/planSlice";
 import { setCurrentPlan } from "../../features/plans/planToChangeSlice";
 
@@ -8,33 +8,35 @@ import layout from "../../css/layout.module.css";
 import styles from "../../css/exercise.module.css";
 import btnStyles from "../../css/buttons.module.css";
 import header from "../../css/header.module.css";
+import { useEffect } from "react";
 
-function PlanDetails({ plan }) {
+function PlanDetails({ plan, actionContainer, actionContainerShow, setActionContainerShow }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (actionContainerShow) {
+  //     actionContainer.current.classList.add(layout.action__container__visible);
+  //   } else {
+  //     actionContainer.current.classList.remove(layout.action__container__visible);
+  //   }
+  // }, [actionContainerShow]);
 
   const showHideInfo = (e) => {
     const target = e.currentTarget.nextElementSibling;
 
-    const buttons = e.currentTarget.parentElement.children[1].children[1].children;
-    const [btn1, btn2] = buttons;
-
     if (target.classList.length === 1) {
       target.classList.add(styles.show);
       e.currentTarget.children[1].textContent = "Hide info↑";
-      btn1.classList.add(btnStyles.animate__btn);
-      btn2.classList.add(btnStyles.animate__btn);
     } else {
       target.classList.remove(styles.show);
       e.currentTarget.children[1].textContent = "Show info↓";
-      btn1.classList.remove(btnStyles.animate__btn);
-      btn2.classList.remove(btnStyles.animate__btn);
     }
   };
 
   const onClick = () => {
+    setActionContainerShow(true);
     dispatch(setCurrentPlan(plan));
-    navigate("/change-plan");
   };
   return (
     <>
@@ -56,14 +58,11 @@ function PlanDetails({ plan }) {
           </div>
           <div className={btnStyles.btns__col}>
             <button onClick={onClick} className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-              <span>edit plan</span>
+              <span>actions</span>
             </button>
-            <button
-              onClick={() => dispatch(deletePlan(plan._id))}
-              className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}
-            >
-              <span>remove plan</span>
-            </button>
+            <Link to="/plans" className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
+              <span>start workout</span>
+            </Link>
           </div>
         </div>
       </div>

@@ -103,7 +103,7 @@ const updateWorkoutPlan = asyncHandler(async (req, res) => {
     volume: req.body.volume,
     exercises: req.body.exercises,
   };
-  console.log(update);
+
   const updatedPlan = await workoutPlan.findByIdAndUpdate(req.params.id, update);
 
   res.status(200).json(updatedPlan);
