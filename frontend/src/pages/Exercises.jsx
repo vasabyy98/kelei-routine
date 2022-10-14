@@ -31,6 +31,9 @@ function Exercises() {
             <Link to="/home">
               <span className={nav.arrow__link}>←</span>
             </Link>
+            <span onClick={() => window.location.reload()} className={nav.text__link}>
+              Refresh
+            </span>
           </nav>
           <div
             style={{ justifyContent: "unset" }}

@@ -137,6 +137,9 @@
   .form__group {
     width: 450px;
   }
+  .exercise__wrapper {
+    width: unset;
+  }
 }
 @media only screen and (hover: none) and (pointer: coarse) {
   .container {

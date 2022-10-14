@@ -5,6 +5,7 @@ const initialState = {
   exerciseName: "",
   currentWeight: "",
   rm: "",
+  restTime: 0,
   exercise_id: "",
   isError: false,
   isLoading: false,
@@ -12,19 +13,22 @@ const initialState = {
   message: "",
 };
 
-export const updateExercise = createAsyncThunk("exercises/update", async (data, thunkAPI) => {
-  try {
-    const token = thunkAPI.getState().auth.user.token;
-    return await exerciseService.updateExercise(data, token);
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
+export const updateExercise = createAsyncThunk(
+  "exercises/update",
+  async (exerciseData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await exerciseService.updateExercise(exerciseData, token);
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-    return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 export const chosenExerciseSlice = createSlice({
   name: "chosenExercise",
@@ -50,6 +54,7 @@ export const chosenExerciseSlice = createSlice({
         state.exerciseName = action.payload.exerciseName;
         state.currentWeight = action.payload.currentWeight;
         state.rm = action.payload.rm;
+        state.restTime = action.payload.AVGRestTime;
       })
       .addCase(updateExercise.rejected, (state, action) => {
         state.isLoading = false;

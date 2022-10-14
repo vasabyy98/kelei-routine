@@ -46,9 +46,7 @@ function ChangePlan() {
   const thirdVolume = useRef();
 
   useEffect(() => {
-    if (chosenPlan.planName === "") {
-      navigate("/plans");
-    }
+    if (chosenPlan.planName === "") navigate("/plans");
 
     [firstRoutine, secondRoutine, thirdRoutine].forEach((routine) => {
       if (routine.current.value === chosenPlan.routine) {
@@ -78,16 +76,16 @@ function ChangePlan() {
 
     const exercisesToPush = {};
 
-    if (routine === "fullbody") exercisesToPush.fullbody = fullbodyExercises;
+    if (routine === "fullbody") exercisesToPush["Fullbody"] = fullbodyExercises;
 
     if (routine === "a/b split") {
-      exercisesToPush.upperSplit = upperExercises;
-      exercisesToPush.lowerSplit = lowerExercises;
+      exercisesToPush["Upper Split"] = upperExercises;
+      exercisesToPush["Lower Split"] = lowerExercises;
     }
     if (routine === "ppl") {
-      exercisesToPush.pushSplit = pushExercises;
-      exercisesToPush.pullSllit = pullExercises;
-      exercisesToPush.legsSplit = legsExercises;
+      exercisesToPush["Push Split"] = pushExercises;
+      exercisesToPush["Pull Split"] = pullExercises;
+      exercisesToPush["Legs Split"] = legsExercises;
     }
 
     const plan = {

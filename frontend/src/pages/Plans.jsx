@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlans, resetPlans, deletePlan } from "../features/plans/planSlice";
 import { resetChosenPlan } from "../features/plans/planToChangeSlice";
+import { resetExercises } from "../features/exercises/completedExerciseSlice";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/exercise.module.css";
@@ -29,6 +30,7 @@ function Plans() {
 
     return () => {
       dispatch(resetPlans());
+      dispatch(resetExercises());
     };
   }, [isError, message, dispatch]);
 

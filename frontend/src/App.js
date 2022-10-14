@@ -12,6 +12,10 @@ import ChangeExercise from "./pages/ChangeExercise";
 import Plans from "./pages/Plans";
 import CreatePlan from "./pages/CreatePlan";
 import ChangePlan from "./pages/ChangePlan";
+import ChooseSplit from "./pages/ChooseSplit";
+import ChooseExercise from "./pages/ChooseExercise";
+import RepCounter from "./pages/RepCounter";
+
 import DeviceSize from "./components/deviceSizeMessage/DeviceSize";
 
 function App() {
@@ -32,6 +36,9 @@ function App() {
             <Route path="/plans" element={<Plans />} />
             <Route path="/create-plan" element={<CreatePlan />} />
             <Route path="/change-plan" element={<ChangePlan />} />
+            <Route path="/choose-split" element={<ChooseSplit />} />
+            <Route path="/choose-exercise" element={<ChooseExercise />} />
+            <Route path="/rep-counter" element={<RepCounter />} />
           </Routes>
         </div>
       </Router>

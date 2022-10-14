@@ -71,7 +71,7 @@ function ChangeExercise() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const exercise = {
+    const exerciseData = {
       exerciseName: exerciseName,
       currentWeight: weight,
       rm: rm,
@@ -79,7 +79,7 @@ function ChangeExercise() {
 
     const id = chosenExercise.exercise_id;
 
-    dispatch(updateExercise({ id, exercise }));
+    dispatch(updateExercise({ id, exerciseData }));
     dispatch(resetChosenExercise());
     navigate("/exercises");
   };
@@ -104,7 +104,7 @@ function ChangeExercise() {
             <header className={header.header}>
               <h2 className={header.heading__h2}>Change exercise</h2>
               <p style={{ maxWidth: "unset" }} className={header.subheading}>
-                Set exercise name, weight and choose the repetition range.
+                Change exercise name, weight and repetition range.
               </p>
             </header>
             <div className={styles.input__wrapper}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { deletePlan } from "../../features/plans/planSlice";
@@ -8,7 +8,6 @@ import layout from "../../css/layout.module.css";
 import styles from "../../css/exercise.module.css";
 import btnStyles from "../../css/buttons.module.css";
 import header from "../../css/header.module.css";
-import { useEffect } from "react";
 
 function PlanDetails({ plan, setActionContainerShow }) {
   const dispatch = useDispatch();
@@ -52,9 +51,15 @@ function PlanDetails({ plan, setActionContainerShow }) {
             <button onClick={onClick} className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
               <span>actions</span>
             </button>
-            <Link to="/plans" className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}>
+            <button
+              onClick={() => {
+                dispatch(setCurrentPlan(plan));
+                navigate("/choose-split");
+              }}
+              className={`${btnStyles.btn} ${btnStyles.secondaryBtn}`}
+            >
               <span>start workout</span>
-            </Link>
+            </button>
           </div>
         </div>
       </div>

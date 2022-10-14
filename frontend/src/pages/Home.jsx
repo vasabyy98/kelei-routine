@@ -46,9 +46,9 @@ function Home() {
     dispatch(getExercises());
     dispatch(getPlans());
 
-    return () => {
-      dispatch(resetExercises());
-    };
+    // return () => {
+    //   dispatch(resetExercises());
+    // };
   }, [user, navigate, isError, message, dispatch]);
 
   const [greeting, setGreeting] = useState("Welcome back,");

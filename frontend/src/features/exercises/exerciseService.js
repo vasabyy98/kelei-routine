@@ -43,15 +43,14 @@ const deleteExercise = async (exerciseId, token) => {
 
 // update exercise
 const updateExercise = async (data, token) => {
-  const { id, exercise } = data;
-
+  const { id, exerciseData } = data;
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.put(API_URL + id, exercise, config);
+  const response = await axios.put(API_URL + id, exerciseData, config);
 
   return response.data;
 };

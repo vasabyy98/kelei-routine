@@ -32,7 +32,7 @@ const setExercise = asyncHandler(async (req, res) => {
   res.status(200).json(exercise);
 });
 
-// @desc update workout plan
+// @desc update exercise
 // @route PUT /api/exercises
 // @access Private
 const updateExercise = asyncHandler(async (req, res) => {
@@ -56,6 +56,7 @@ const updateExercise = asyncHandler(async (req, res) => {
     exerciseName: req.body.exerciseName,
     currentWeight: req.body.currentWeight,
     rm: req.body.rm,
+    restTime: req.body.restTime,
   };
 
   const updatedExercise = await Exercises.findByIdAndUpdate(req.params.id, update);
