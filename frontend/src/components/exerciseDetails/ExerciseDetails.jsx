@@ -75,7 +75,7 @@ function ExerciseDetails({ exercise }) {
             <div className={styles.exercise__inner}>
               <span>Average rest time:</span>
               <span style={{ textTransform: "capitalize" }}>
-                {exercise.restTime}
+                {Math.round(exercise.restTime)}
                 <span style={{ textTransform: "uppercase" }}>sec</span>
               </span>
             </div>

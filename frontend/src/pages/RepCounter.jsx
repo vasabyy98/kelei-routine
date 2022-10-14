@@ -37,6 +37,10 @@ function RepCounter() {
   });
 
   useEffect(() => {
+    if (splitExercise === undefined) navigate("/plans");
+  });
+
+  useEffect(() => {
     if (completedReps >= chosenPlanVolume) {
       onFinish();
     }
@@ -131,7 +135,9 @@ function RepCounter() {
           <div className={layout.flex__layout}>
             <div className={`${layout.flex__layout} ${styles.exercises__wrapper}`}>
               <header className={header.header}>
-                <h2 className={header.heading__h2}>{splitExercise.exerciseName}</h2>
+                {splitExercise !== undefined && (
+                  <h2 className={header.heading__h2}>{splitExercise.exerciseName}</h2>
+                )}
               </header>
               <div className={`${styles.exercise__details__wrapper} ${styles.show}`}>
                 <div className={styles.exercise__details}>

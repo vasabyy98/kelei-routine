@@ -20,7 +20,13 @@ function ChooseSplit() {
     if (splits === undefined) {
       navigate("/plans");
     } else {
-      Object.keys(splits).map((split) => split === "Fullbody" && navigate("/plans"));
+      Object.keys(splits).map((split) => {
+        if (split === "Fullbody") {
+          dispatch(setSplit(split));
+          dispatch(getExercises());
+          navigate("/choose-exercise");
+        }
+      });
     }
   });
 

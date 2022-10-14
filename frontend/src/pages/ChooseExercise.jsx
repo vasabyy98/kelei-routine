@@ -16,23 +16,29 @@ function ChooseExercise() {
 
   const allExercises = useSelector((state) => state.exercises.exercises);
   const selectedSplit = useSelector((state) => state.chosenSplit.split);
-  const planExercises = useSelector((state) => state.chosenPlan.exercises[0][selectedSplit]);
+
+  let planExercises;
+  const exercises = [];
+
+  if (selectedSplit !== "") {
+    planExercises = useSelector((state) => state.chosenPlan.exercises[0][selectedSplit]);
+
+    planExercises.forEach((exercise) => {
+      exercises.push({ exercise, isCompleted: false });
+    });
+  }
+
   const splitExercises = [];
 
   const [completed, setCompleted] = useState(0);
   const completedExercises = useSelector((state) => state.completedExercises);
 
-  const exercises = [];
-
-  planExercises.forEach((exercise) => {
-    exercises.push({ exercise, isCompleted: false });
-  });
-
   useEffect(() => {
     if (selectedSplit === "") {
       navigate("/plans");
     }
-  }, [selectedSplit]);
+    console.log(selectedSplit);
+  });
 
   useEffect(() => {
     if (!completedExercises.isWorkoutStarted) {
@@ -69,9 +75,15 @@ function ChooseExercise() {
       <section className={layout.content__wrapper}>
         <div className={`${styles.form} ${layout.twoRow__grid__layout}`}>
           <nav className={nav.nav}>
-            <Link to="/choose-split">
-              <span className={nav.arrow__link}>←</span>
-            </Link>
+            {selectedSplit === "Fullbody" ? (
+              <Link to="/plans">
+                <span className={nav.arrow__link}>←</span>
+              </Link>
+            ) : (
+              <Link to="/choose-split">
+                <span className={nav.arrow__link}>←</span>
+              </Link>
+            )}
           </nav>
           {splitExercises.length !== 0 && (
             <div className={styles.form__inner}>

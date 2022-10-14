@@ -20,46 +20,15 @@ function ChangeExercise() {
   const [exerciseData, setExerciseData] = useState({
     exerciseName: chosenExercise.exerciseName,
     weight: chosenExercise.currentWeight,
-    rm: chosenExercise.rm,
   });
 
-  const { exerciseName, weight, rm } = exerciseData;
-
-  const first = useRef();
-  const second = useRef();
-  const third = useRef();
-  const fourth = useRef();
+  const { exerciseName, weight } = exerciseData;
 
   useEffect(() => {
     if (chosenExercise.exerciseName === "") {
       navigate("/exercises");
     }
-
-    if (first.current.value === rm) {
-      first.current.checked = true;
-      second.current.checked = false;
-      third.current.checked = false;
-      fourth.current.checked = false;
-    }
-    if (second.current.value === rm) {
-      second.current.checked = true;
-      first.current.checked = false;
-      third.current.checked = false;
-      fourth.current.checked = false;
-    }
-    if (third.current.value === rm) {
-      third.current.checked = true;
-      second.current.checked = false;
-      first.current.checked = false;
-      fourth.current.checked = false;
-    }
-    if (fourth.current.value === rm) {
-      fourth.current.checked = true;
-      second.current.checked = false;
-      third.current.checked = false;
-      first.current.checked = false;
-    }
-  }, [rm]);
+  });
 
   const onChange = (e) => {
     setExerciseData((prevState) => ({
@@ -74,7 +43,6 @@ function ChangeExercise() {
     const exerciseData = {
       exerciseName: exerciseName,
       currentWeight: weight,
-      rm: rm,
     };
 
     const id = chosenExercise.exercise_id;
@@ -83,14 +51,6 @@ function ChangeExercise() {
     dispatch(resetChosenExercise());
     navigate("/exercises");
   };
-
-  const onClick = (e) => {
-    setExerciseData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   return (
     <>
       <section className={layout.content__wrapper}>
@@ -104,7 +64,7 @@ function ChangeExercise() {
             <header className={header.header}>
               <h2 className={header.heading__h2}>Change exercise</h2>
               <p style={{ maxWidth: "unset" }} className={header.subheading}>
-                Change exercise name, weight and repetition range.
+                Change exercise name and weight.
               </p>
             </header>
             <div className={styles.input__wrapper}>
@@ -131,66 +91,6 @@ function ChangeExercise() {
                   placeholder="Weight(kg)"
                 />
                 <div className={styles.gradient__stroke}></div>
-              </div>
-              <div className={styles.form__group}>
-                <div className={`${styles.form__control}`}>
-                  <span>3-5RM</span>
-                </div>
-                <input
-                  ref={first}
-                  onClick={onClick}
-                  type="radio"
-                  value="3-5RM"
-                  name="rm"
-                  className={styles.form__control__radio}
-                />
-                <div className={styles.gradient__stroke}></div>
-                <div className={styles.selected}>selected</div>
-              </div>
-              <div className={styles.form__group}>
-                <div className={`${styles.form__control}`}>
-                  <span>8-12RM</span>
-                </div>
-                <input
-                  ref={second}
-                  onClick={onClick}
-                  type="radio"
-                  value="8-12RM"
-                  name="rm"
-                  className={styles.form__control__radio}
-                />
-                <div className={styles.gradient__stroke}></div>
-                <div className={styles.selected}>selected</div>
-              </div>
-              <div className={styles.form__group}>
-                <div className={`${styles.form__control}`}>
-                  <span>8-15RM</span>
-                </div>
-                <input
-                  ref={third}
-                  onClick={onClick}
-                  type="radio"
-                  value="8-15RM"
-                  name="rm"
-                  className={styles.form__control__radio}
-                />
-                <div className={styles.gradient__stroke}></div>
-                <div className={styles.selected}>selected</div>
-              </div>
-              <div className={styles.form__group}>
-                <div className={`${styles.form__control}`}>
-                  <span>15-20RM</span>
-                </div>
-                <input
-                  ref={fourth}
-                  onClick={onClick}
-                  type="radio"
-                  value="15-20RM"
-                  name="rm"
-                  className={styles.form__control__radio}
-                />
-                <div className={styles.gradient__stroke}></div>
-                <div className={styles.selected}>selected</div>
               </div>
             </div>
             <p
