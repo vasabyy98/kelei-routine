@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,8 @@ import FullbodySplit from "../components/planSplits/FullbodySplit";
 import ABSPlit from "../components/planSplits/ABSplit";
 import PPLSplit from "../components/planSplits/PPLSplit";
 
+import { gsap } from "gsap";
+
 import layout from "../css/layout.module.css";
 import btnStyles from "../css/buttons.module.css";
 import header from "../css/header.module.css";
@@ -17,6 +19,72 @@ import nav from "../css/nav.module.css";
 import styles from "../css/signIn.module.css";
 
 function ChangePlan() {
+  const staggerAnimationContainer = useRef();
+  const buttons = useRef();
+  const navContainer = useRef();
+  const tl = useRef();
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      tl.current = gsap
+        .timeline()
+        .fromTo(
+          navContainer.current,
+          {
+            opacity: 0,
+            yPercent: -100,
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1,
+          },
+          "+0.1"
+        )
+        .fromTo(
+          ".animate__item",
+          {
+            opacity: 0,
+            y: 25,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.2,
+            duration: 1,
+          },
+          "+0.25"
+        )
+        .fromTo(
+          ".animate__item--input",
+          {
+            opacity: 0,
+            scale: 0.85,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            stagger: 0.2,
+            duration: 1,
+          },
+          "+0.5"
+        )
+        .fromTo(
+          buttons.current,
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            duration: 1,
+          },
+          "+1"
+        );
+    }, staggerAnimationContainer);
+
+    return () => ctx.revert();
+  }, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -109,21 +177,29 @@ function ChangePlan() {
   return (
     <>
       <section className={layout.content__wrapper}>
-        <form onSubmit={onSubmit} className={`${styles.form} ${layout.threeRow__grid__layout}`}>
-          <nav className={nav.nav}>
+        <form
+          style={{ gap: "2.5rem" }}
+          ref={staggerAnimationContainer}
+          onSubmit={onSubmit}
+          className={`${styles.form} ${layout.threeRow__grid__layout}`}
+        >
+          <nav ref={navContainer} className={nav.nav}>
             <Link to="/plans">
               <span className={nav.arrow__link}>←</span>
             </Link>
           </nav>
           <div className={styles.form__inner}>
             <header className={header.header}>
-              <h2 className={header.heading__h2}>Routine type</h2>
-              <p style={{ maxWidth: "unset" }} className={header.subheading}>
+              <h2 className={`${header.heading__h2} ${"animate__item"}`}>Routine type</h2>
+              <p
+                style={{ maxWidth: "unset" }}
+                className={`${header.subheading} ${"animate__item"}`}
+              >
                 Choose routine type for your plan.
               </p>
             </header>
             <div className={styles.input__wrapper}>
-              <div className={styles.form__group}>
+              <div className={`${styles.form__group} ${"animate__item--input"}`}>
                 <div className={`${styles.form__control}`}>
                   <span>Full Body</span>
                 </div>
@@ -138,7 +214,7 @@ function ChangePlan() {
                 <div className={styles.gradient__stroke}></div>
                 <div className={styles.selected}>selected</div>
               </div>
-              <div className={styles.form__group}>
+              <div className={`${styles.form__group} ${"animate__item--input"}`}>
                 <div className={`${styles.form__control}`}>
                   <span>A/B Split</span>
                 </div>
@@ -153,7 +229,7 @@ function ChangePlan() {
                 <div className={styles.gradient__stroke}></div>
                 <div className={styles.selected}>selected</div>
               </div>
-              <div className={styles.form__group}>
+              <div className={`${styles.form__group} ${"animate__item--input"}`}>
                 <div className={`${styles.form__control}`}>
                   <span>PPL</span>
                 </div>
@@ -172,13 +248,13 @@ function ChangePlan() {
             <div className={styles.clarification}>
               <p
                 style={{ maxWidth: "unset", margin: "var(--gap-children 0" }}
-                className={header.subheading}
+                className={`${header.subheading} ${"animate__item"}`}
               >
                 A/B Split - alternate between upper and lower muscles groups.
               </p>
               <p
                 style={{ maxWidth: "unset", margin: "var(--gap-children 0" }}
-                className={header.subheading}
+                className={`${header.subheading} ${"animate__item"}`}
               >
                 PPL - rotate through push, pull and legs workouts.
               </p>
@@ -186,13 +262,16 @@ function ChangePlan() {
           </div>
           <div className={styles.form__inner}>
             <header className={header.header}>
-              <h2 className={header.heading__h2}>Volume</h2>
-              <p style={{ maxWidth: "unset" }} className={header.subheading}>
+              <h2 className={`${header.heading__h2} ${"animate__item"}`}>Volume</h2>
+              <p
+                style={{ maxWidth: "unset" }}
+                className={`${header.subheading} ${"animate__item"}`}
+              >
                 Choose volume for your plan.
               </p>
             </header>
             <div className={styles.input__wrapper}>
-              <div className={styles.form__group}>
+              <div className={`${styles.form__group} ${"animate__item--input"}`}>
                 <div className={`${styles.form__control}`}>
                   <span>30</span>
                 </div>
@@ -207,7 +286,7 @@ function ChangePlan() {
                 <div className={styles.gradient__stroke}></div>
                 <div className={styles.selected}>selected</div>
               </div>
-              <div className={styles.form__group}>
+              <div className={`${styles.form__group} ${"animate__item--input"}`}>
                 <div className={`${styles.form__control}`}>
                   <span>40</span>
                 </div>
@@ -222,7 +301,7 @@ function ChangePlan() {
                 <div className={styles.gradient__stroke}></div>
                 <div className={styles.selected}>selected</div>
               </div>
-              <div className={styles.form__group}>
+              <div className={`${styles.form__group} ${"animate__item--input"}`}>
                 <div className={`${styles.form__control}`}>
                   <span>50</span>
                 </div>
@@ -267,10 +346,10 @@ function ChangePlan() {
           </div>
           <div className={styles.form__inner}>
             <header className={header.header}>
-              <h2 className={header.heading__h2}>Name your plan!</h2>
+              <h2 className={`${header.heading__h2} ${"animate__item"}`}>Name your plan!</h2>
             </header>
             <div className={styles.input__wrapper}>
-              <div className={styles.form__group}>
+              <div className={`${styles.form__group} ${"animate__item--input"}`}>
                 <input
                   type="text"
                   className={styles.form__control}
@@ -284,7 +363,7 @@ function ChangePlan() {
               </div>
             </div>
           </div>
-          <div className={btnStyles.btns__row}>
+          <div ref={buttons} className={btnStyles.btns__row}>
             <button type="submit" className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
               <span>change plan</span>
             </button>

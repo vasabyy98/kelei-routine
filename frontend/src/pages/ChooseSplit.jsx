@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { setSplit } from "../features/plans/chosenSplit";
 import { getExercises } from "../features/exercises/exerciseSlice";
+
+import { gsap } from "gsap";
 
 import layout from "../css/layout.module.css";
 import header from "../css/header.module.css";
@@ -11,6 +13,60 @@ import nav from "../css/nav.module.css";
 import styles from "../css/signIn.module.css";
 
 function ChooseSplit() {
+  const staggerAnimationContainer = useRef();
+  const navContainer = useRef();
+  const tl = useRef();
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      tl.current = gsap
+        .timeline()
+        .fromTo(
+          navContainer.current,
+          {
+            opacity: 0,
+            yPercent: -100,
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1,
+          },
+          "+0.1"
+        )
+        .fromTo(
+          ".animate__item",
+          {
+            opacity: 0,
+            y: 25,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.2,
+            duration: 1,
+          },
+          "+0.25"
+        )
+        .fromTo(
+          ".animate__item--input",
+          {
+            opacity: 0,
+            scale: 0.85,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            stagger: 0.2,
+            duration: 1,
+          },
+          "+0.5"
+        );
+    }, staggerAnimationContainer);
+
+    return () => ctx.revert();
+  }, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,18 +98,18 @@ function ChooseSplit() {
       {splits !== undefined && (
         <section className={layout.content__wrapper}>
           <div className={`${styles.form} ${layout.twoRow__grid__layout}`}>
-            <nav className={nav.nav}>
+            <nav ref={navContainer} className={nav.nav}>
               <Link to="/plans">
                 <span className={nav.arrow__link}>←</span>
               </Link>
             </nav>
-            <div className={styles.form__inner}>
+            <div ref={staggerAnimationContainer} className={styles.form__inner}>
               <header className={header.header}>
-                <h2 className={header.heading__h2}>Choose split</h2>
+                <h2 className={`${header.heading__h2} ${"animate__item"}`}>Choose split</h2>
               </header>
               <div className={styles.input__wrapper}>
                 {Object.keys(splits).map((key, i) => (
-                  <div key={key + i} className={styles.form__group}>
+                  <div key={key + i} className={`${styles.form__group} ${"animate__item--input"}`}>
                     <div className={`${styles.form__control}`}>
                       <span>{key}</span>
                     </div>

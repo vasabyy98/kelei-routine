@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { deletePlan } from "../../features/plans/planSlice";
+import { useNavigate } from "react-router-dom";
+
 import { setCurrentPlan } from "../../features/plans/planToChangeSlice";
+
+import { gsap } from "gsap";
 
 import layout from "../../css/layout.module.css";
 import styles from "../../css/exercise.module.css";
@@ -10,6 +12,23 @@ import btnStyles from "../../css/buttons.module.css";
 import header from "../../css/header.module.css";
 
 function PlanDetails({ plan, setActionContainerShow }) {
+  useLayoutEffect(() => {
+    gsap.fromTo(
+      ".animate__item",
+      {
+        opacity: 0,
+        yPercent: 50,
+      },
+      {
+        yPercent: 0,
+        opacity: 1,
+        delay: 0.25,
+        stagger: 0.25,
+        duration: 1,
+      }
+    );
+  }, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,7 +50,11 @@ function PlanDetails({ plan, setActionContainerShow }) {
   };
   return (
     <>
-      <div key={plan._id} style={{ height: "unset" }} className={layout.flex__layout}>
+      <div
+        key={plan._id}
+        style={{ height: "unset" }}
+        className={`${layout.flex__layout} ${"animate__item"}`}
+      >
         <header onClick={showHideInfo} style={{ cursor: "pointer" }} className={header.header}>
           <h2 className={`${header.heading__h2}`}>{plan.planName}</h2>
           <button className={header.subheading}>Show info↓</button>

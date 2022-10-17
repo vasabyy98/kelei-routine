@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { setExercise } from "../features/plans/chosenSplit";
 import { addExercises } from "../features/exercises/completedExerciseSlice";
+
+import { gsap } from "gsap";
 
 import layout from "../css/layout.module.css";
 import header from "../css/header.module.css";
@@ -11,22 +13,72 @@ import nav from "../css/nav.module.css";
 import styles from "../css/signIn.module.css";
 
 function ChooseExercise() {
+  const staggerAnimationContainer = useRef(null);
+  const navContainer = useRef();
+  const tl = useRef();
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      tl.current = gsap
+        .timeline()
+        .fromTo(
+          navContainer.current,
+          {
+            opacity: 0,
+            yPercent: -100,
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1,
+          },
+          "+0.1"
+        )
+        .fromTo(
+          ".animate__item",
+          {
+            opacity: 0,
+            y: 25,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.2,
+            duration: 1,
+          },
+          "+0.25"
+        )
+        .fromTo(
+          ".animate__item--input",
+          {
+            opacity: 0,
+            scale: 0.85,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            stagger: 0.2,
+            duration: 1,
+          },
+          "+0.5"
+        );
+    }, staggerAnimationContainer);
+
+    return () => ctx.revert();
+  }, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const allExercises = useSelector((state) => state.exercises.exercises);
   const selectedSplit = useSelector((state) => state.chosenSplit.split);
 
-  let planExercises;
+  const planExercises = useSelector((state) => state.chosenPlan.exercises[0][selectedSplit]);
   const exercises = [];
 
-  if (selectedSplit !== "") {
-    planExercises = useSelector((state) => state.chosenPlan.exercises[0][selectedSplit]);
-
-    planExercises.forEach((exercise) => {
-      exercises.push({ exercise, isCompleted: false });
-    });
-  }
+  planExercises.forEach((exercise) => {
+    exercises.push({ exercise, isCompleted: false });
+  });
 
   const splitExercises = [];
 
@@ -37,7 +89,6 @@ function ChooseExercise() {
     if (selectedSplit === "") {
       navigate("/plans");
     }
-    console.log(selectedSplit);
   });
 
   useEffect(() => {
@@ -74,7 +125,7 @@ function ChooseExercise() {
     <>
       <section className={layout.content__wrapper}>
         <div className={`${styles.form} ${layout.twoRow__grid__layout}`}>
-          <nav className={nav.nav}>
+          <nav ref={navContainer} className={nav.nav}>
             {selectedSplit === "Fullbody" ? (
               <Link to="/plans">
                 <span className={nav.arrow__link}>←</span>
@@ -86,17 +137,23 @@ function ChooseExercise() {
             )}
           </nav>
           {splitExercises.length !== 0 && (
-            <div className={styles.form__inner}>
+            <div ref={staggerAnimationContainer} className={styles.form__inner}>
               <header className={header.header}>
-                <h2 className={header.heading__h2}>Choose exercise</h2>
-                <p style={{ maxWidth: "unset" }} className={header.subheading}>
+                <h2 className={`${header.heading__h2} ${"animate__item"}`}>Choose exercise</h2>
+                <p
+                  style={{ maxWidth: "unset" }}
+                  className={`${header.subheading} ${"animate__item"}`}
+                >
                   {Math.round((completed / completedExercises.exercises.length) * 100)}% -
                   completed.
                 </p>
               </header>
               <div className={styles.input__wrapper}>
                 {splitExercises.map((exercise) => (
-                  <div key={exercise._id} className={styles.form__group}>
+                  <div
+                    key={exercise._id}
+                    className={`${styles.form__group} ${"animate__item--input"}`}
+                  >
                     <div className={`${styles.form__control}`}>
                       <span>{exercise.exerciseName}</span>
                     </div>

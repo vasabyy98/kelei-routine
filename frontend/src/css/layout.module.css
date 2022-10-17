@@ -78,12 +78,18 @@
   z-index: 10;
   pointer-events: none;
   background-color: #0808089b;
-  backdrop-filter: blur(15px);
   opacity: 0;
+  transition: 0.3s;
 }
 .action__container__visible {
   opacity: 1;
   pointer-events: all;
+  backdrop-filter: blur(15px);
+}
+@media (min-width: 600px) {
+  .threeRow__grid__layout {
+    width: 450px;
+  }
 }
 @media only screen and (hover: none) and (pointer: coarse) {
   .container {

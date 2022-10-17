@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { logout, reset } from "../features/auth/authSlice";
-import { getExercises, resetExercises } from "../features/exercises/exerciseSlice";
+import { getExercises } from "../features/exercises/exerciseSlice";
 import { getPlans } from "../features/plans/planSlice";
+
+import { gsap } from "gsap";
 
 import layout from "../css/layout.module.css";
 import styles from "../css/home.module.css";
@@ -14,6 +15,59 @@ import header from "../css/header.module.css";
 import image from "../css/backgroundImage.module.css";
 
 function Home() {
+  const backgroundImage = useRef();
+  const staggerAnimationContainer = useRef();
+  const buttons = useRef();
+  const tl = useRef();
+
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      tl.current = gsap
+        .timeline()
+        .fromTo(
+          backgroundImage.current,
+          {
+            opacity: 0,
+            backgroundSize: "200%",
+          },
+          {
+            opacity: 1,
+            backgroundSize: "150%",
+            ease: "expo.out",
+            duration: 1,
+          },
+          "+0.1"
+        )
+        .fromTo(
+          ".animate__item",
+          {
+            opacity: 0,
+            y: 25,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.25,
+            duration: 1,
+          },
+          "+0.25"
+        )
+        .fromTo(
+          buttons.current,
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            duration: 1,
+          },
+          "+0.9"
+        );
+    }, staggerAnimationContainer);
+
+    return () => ctx.revert();
+  }, []);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,12 +85,6 @@ function Home() {
   };
 
   useEffect(() => {
-    // if (plans.length === 0) {
-    //   plansContainer.current.classList.add(styles.home__inner__disabled);
-    // } else {
-    //   plansContainer.current.classList.remove(styles.home__inner__disabled);
-    // }
-
     if (!user) {
       navigate("/");
     }
@@ -45,10 +93,6 @@ function Home() {
 
     dispatch(getExercises());
     dispatch(getPlans());
-
-    // return () => {
-    //   dispatch(resetExercises());
-    // };
   }, [user, navigate, isError, message, dispatch]);
 
   const [greeting, setGreeting] = useState("Welcome back,");
@@ -82,7 +126,7 @@ function Home() {
     } else if (currentTime >= nightStart && currentTime <= nightEnd) {
       setGreeting("Welcome back,");
     }
-  }, []);
+  }, [currentTime]);
 
   const onClick = (e) => {
     if (e.currentTarget === exercisesLink.current) navigate("/exercises");
@@ -91,15 +135,15 @@ function Home() {
 
   return (
     <>
-      <div className={image.backgroundImageHome}></div>
+      <div ref={backgroundImage} className={image.backgroundImageHome}></div>
       <section className={layout.content__wrapper}>
-        <div className={layout.threeRow__grid__layout}>
+        <div ref={staggerAnimationContainer} className={layout.threeRow__grid__layout}>
           <header className={styles.home__header}>
-            <h2 className={header.heading__h2}>
+            <h2 className={`${header.heading__h2} ${"animate__item"}`}>
               <span>{greeting}</span>
               <span style={{ textTransform: "capitalize" }}>{user.name}!</span>
             </h2>
-            <p style={{ maxWidth: "unset" }} className={header.subheading}>
+            <p style={{ maxWidth: "unset" }} className={`${header.subheading} ${"animate__item"}`}>
               Are you ready to make new PRs?
             </p>
           </header>
@@ -107,7 +151,7 @@ function Home() {
             <div
               onClick={onClick}
               ref={plansLink}
-              className={`${styles.home__plan} ${styles.home__inner}`}
+              className={`${styles.home__plan} ${styles.home__inner} ${"animate__item"}`}
             >
               <h2 className={header.heading__h2}>My plans↘</h2>
               <h2 className={header.heading__h2}>{plans.length}</h2>
@@ -115,13 +159,13 @@ function Home() {
             <div
               ref={exercisesLink}
               onClick={onClick}
-              className={`${styles.home__exercises} ${styles.home__inner}`}
+              className={`${styles.home__exercises} ${styles.home__inner} ${"animate__item"}`}
             >
               <h2 className={header.heading__h2}>My exercises↘</h2>
               <h2 className={header.heading__h2}>{exercises.length}</h2>
             </div>
           </div>
-          <div className={btnStyles.btns__row}>
+          <div ref={buttons} className={btnStyles.btns__row}>
             <button onClick={onLogout} className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
               <span>log out</span>
             </button>
