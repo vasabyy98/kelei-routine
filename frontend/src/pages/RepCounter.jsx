@@ -277,6 +277,9 @@ function RepCounter() {
             <Link to="/choose-exercise">
               <span className={nav.arrow__link}>←</span>
             </Link>
+            <Link to="/rep-counter-how-to">
+              <span className={nav.text__link}>How to use?</span>
+            </Link>
           </nav>
           <div ref={staggerAnimationContainer} className={layout.flex__layout}>
             <div className={`${layout.flex__layout} ${styles.exercises__wrapper}`}>

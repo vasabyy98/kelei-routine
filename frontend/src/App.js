@@ -15,6 +15,7 @@ import ChangePlan from "./pages/ChangePlan";
 import ChooseSplit from "./pages/ChooseSplit";
 import ChooseExercise from "./pages/ChooseExercise";
 import RepCounter from "./pages/RepCounter";
+import RepCounterHowTo from "./pages/RepCounterHowTo";
 
 import DeviceSize from "./components/deviceSizeMessage/DeviceSize";
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/choose-split" element={<ChooseSplit />} />
             <Route path="/choose-exercise" element={<ChooseExercise />} />
             <Route path="/rep-counter" element={<RepCounter />} />
+            <Route path="/rep-counter-how-to" element={<RepCounterHowTo />} />
           </Routes>
         </div>
       </Router>
