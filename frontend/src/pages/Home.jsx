@@ -149,20 +149,20 @@ function Home() {
           </header>
           <div className={styles.home__main}>
             <div
-              onClick={onClick}
-              ref={plansLink}
-              className={`${styles.home__plan} ${styles.home__inner} ${"animate__item"}`}
-            >
-              <h2 className={header.heading__h2}>My plans↘</h2>
-              <h2 className={header.heading__h2}>{plans.length}</h2>
-            </div>
-            <div
               ref={exercisesLink}
               onClick={onClick}
               className={`${styles.home__exercises} ${styles.home__inner} ${"animate__item"}`}
             >
               <h2 className={header.heading__h2}>My exercises↘</h2>
               <h2 className={header.heading__h2}>{exercises.length}</h2>
+            </div>
+            <div
+              onClick={onClick}
+              ref={plansLink}
+              className={`${styles.home__plan} ${styles.home__inner} ${"animate__item"}`}
+            >
+              <h2 className={header.heading__h2}>My plans↘</h2>
+              <h2 className={header.heading__h2}>{plans.length}</h2>
             </div>
           </div>
           <div ref={buttons} className={btnStyles.btns__row}>
