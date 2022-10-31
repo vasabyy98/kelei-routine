@@ -5,7 +5,6 @@ const initialState = {
   exerciseName: "",
   currentWeight: "",
   rm: "",
-  restTime: 0,
   exercise_id: "",
   isError: false,
   isLoading: false,
@@ -54,7 +53,6 @@ export const chosenExerciseSlice = createSlice({
         state.exerciseName = action.payload.exerciseName;
         state.currentWeight = action.payload.currentWeight;
         state.rm = action.payload.rm;
-        state.restTime = action.payload.AVGRestTime;
       })
       .addCase(updateExercise.rejected, (state, action) => {
         state.isLoading = false;

@@ -18,9 +18,6 @@ const exerciseSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  restTime: {
-    type: Number,
-  },
   rm: {
     type: String,
   },

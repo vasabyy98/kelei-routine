@@ -24,7 +24,6 @@ const setExercise = asyncHandler(async (req, res) => {
     exerciseName: req.body.exerciseName,
     currentWeight: req.body.currentWeight,
     initialWeight: req.body.initialWeight,
-    restTime: req.body.restTime,
     rm: req.body.rm,
     user: req.user.id,
   });
@@ -55,8 +54,6 @@ const updateExercise = asyncHandler(async (req, res) => {
   const update = {
     exerciseName: req.body.exerciseName,
     currentWeight: req.body.currentWeight,
-    rm: req.body.rm,
-    restTime: req.body.restTime,
   };
 
   const updatedExercise = await Exercises.findByIdAndUpdate(req.params.id, update);

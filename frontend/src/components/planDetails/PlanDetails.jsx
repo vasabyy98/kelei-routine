@@ -22,8 +22,8 @@ function PlanDetails({ plan, setActionContainerShow }) {
       {
         yPercent: 0,
         opacity: 1,
-        delay: 0.25,
-        stagger: 0.25,
+        delay: 0.5,
+        stagger: 0.1,
         duration: 1,
       }
     );

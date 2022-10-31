@@ -47,7 +47,7 @@ function Home() {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.25,
+            stagger: 0.1,
             duration: 1,
           },
           "+0.25"
@@ -61,7 +61,7 @@ function Home() {
             opacity: 1,
             duration: 1,
           },
-          "+0.9"
+          "+0.75"
         );
     }, staggerAnimationContainer);
 

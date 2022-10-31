@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { updateExercise } from "../features/exercises/exerciseToChangeSlice";
 import { setExerciseCompleted } from "../features/exercises/completedExerciseSlice";
 
 import { gsap } from "gsap";
@@ -16,7 +15,6 @@ import nav from "../css/nav.module.css";
 function RepCounter() {
   const staggerAnimationContainer = useRef();
   const buttons = useRef();
-  const buttonsInner = useRef();
   const navContainer = useRef();
   const tl = useRef();
 
@@ -46,7 +44,7 @@ function RepCounter() {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.1,
             duration: 1,
           },
           "+0.25"
@@ -60,21 +58,10 @@ function RepCounter() {
           {
             opacity: 1,
             scale: 1,
-            stagger: 0.2,
+            stagger: 0.1,
             duration: 1,
           },
           "+0.5"
-        )
-        .fromTo(
-          buttonsInner.current,
-          {
-            opacity: 0,
-          },
-          {
-            opacity: 1,
-            duration: 1,
-          },
-          "+1.5"
         )
         .fromTo(
           buttons.current,
@@ -85,7 +72,7 @@ function RepCounter() {
             opacity: 1,
             duration: 1,
           },
-          "+1.75"
+          "+0.75"
         );
     }, staggerAnimationContainer);
 
@@ -104,14 +91,10 @@ function RepCounter() {
 
   let splitExercise;
 
-  const [AVGRestTime, setAVGRestTime] = useState(0);
   const [completedReps, setCompletedReps] = useState(0);
 
   const [currentSet, setCurrentSet] = useState(1);
   const [currentReps, setCurrentReps] = useState(0);
-  const [currentRest, setCurrentRest] = useState(0);
-  const [timerIsRunning, setTimer] = useState(false);
-  const [intervalId, setIntervalId] = useState(0);
 
   allExercises.forEach((exercise) => {
     if (exercise._id === selectedExercise) {
@@ -177,11 +160,6 @@ function RepCounter() {
   }, [completedReps]);
 
   const addRep = () => {
-    if (timerIsRunning === false) {
-      startTimer();
-      setTimer(true);
-    }
-
     setCurrentReps((currentReps) => {
       return currentReps + 1;
     });
@@ -195,61 +173,21 @@ function RepCounter() {
     }
   };
 
-  const startTimer = () => {
-    if (timerIsRunning === false) {
-      setIntervalId(
-        setInterval(() => {
-          setCurrentRest((rest) => {
-            return rest + 1;
-          });
-        }, 1000)
-      );
-    }
-  };
-
-  const stopTimer = () => {
-    clearInterval(intervalId);
-    setIntervalId(0);
-  };
-
   const nextSetHandler = () => {
-    if (timerIsRunning) {
-      stopTimer();
-      setTimer(false);
+    setCompletedReps((completed) => {
+      return completed + currentReps;
+    });
 
-      setCompletedReps((completed) => {
-        return completed + currentReps;
-      });
-
-      setCurrentReps(0);
-
-      if (currentSet === 1) {
-        setAVGRestTime((rest) => {
-          return rest + currentRest;
-        });
-      } else {
-        setAVGRestTime((rest) => {
-          return (rest + currentRest) / 2;
-        });
-      }
-
-      setCurrentRest(0);
-      setCurrentSet((set) => {
-        return set + 1;
-      });
-    }
+    setCurrentReps(0);
+    setCurrentSet((set) => {
+      return set + 1;
+    });
   };
 
   const onFinish = () => {
-    const exerciseData = {
-      restTime: AVGRestTime,
-    };
-
     const id = selectedExercise;
 
     dispatch(setExerciseCompleted(id));
-
-    dispatch(updateExercise({ id, exerciseData }));
     navigate("/choose-exercise");
   };
 
@@ -293,11 +231,15 @@ function RepCounter() {
               <div className={`${styles.exercise__details__wrapper} ${styles.show}`}>
                 <div className={styles.exercise__details}>
                   <div className={`${styles.exercise__inner} ${"animate__item--input"}`}>
-                    <span>Average rest time:</span>
+                    <span>Current weight:</span>
                     <span style={{ textTransform: "capitalize" }}>
-                      {AVGRestTime}
-                      <span style={{ textTransform: "uppercase" }}>sec</span>
+                      {splitExercise.currentWeight}
+                      <span style={{ textTransform: "uppercase" }}>KG</span>
                     </span>
+                  </div>
+                  <div className={`${styles.exercise__inner} ${"animate__item--input"}`}>
+                    <span>Current set:</span>
+                    <span style={{ textTransform: "capitalize" }}>{currentSet}</span>
                   </div>
                   <div className={`${styles.exercise__inner} ${"animate__item--input"}`}>
                     <span>Completed reps:</span>
@@ -310,33 +252,22 @@ function RepCounter() {
               </div>
               <div className={`${styles.exercise__details__wrapper} ${styles.show}`}>
                 <div className={styles.exercise__details}>
-                  <div className={`${styles.exercise__inner} ${"animate__item--input"}`}>
-                    <span>Current set:</span>
-                    <span style={{ textTransform: "capitalize" }}>{currentSet}</span>
-                  </div>
-                  <div className={`${styles.exercise__inner} ${"animate__item--input"}`}>
-                    <span>Current reps:</span>
-                    <span style={{ textTransform: "capitalize" }}>{currentReps}</span>
-                  </div>
-                  <div className={`${styles.exercise__inner} ${"animate__item--input"}`}>
-                    <span>Rest timer:</span>
-                    <span style={{ textTransform: "capitalize" }}>
-                      {currentRest}
-                      <span style={{ textTransform: "uppercase" }}>sec</span>
-                    </span>
+                  <div className={`${styles.reps__wrapper} ${"animate__item--input"}`}>
+                    <button
+                      onClick={substractRep}
+                      className={`${btnStyles.btn} ${btnStyles.arrow__btn} ${btnStyles.primaryBtn}`}
+                    >
+                      <span>-</span>
+                    </button>
+                    <div className={styles.exercise__reps}>{currentReps}</div>
+                    <button
+                      onClick={addRep}
+                      className={`${btnStyles.btn} ${btnStyles.arrow__btn} ${btnStyles.primaryBtn}`}
+                    >
+                      <span>+</span>
+                    </button>
                   </div>
                 </div>
-              </div>
-              <div ref={buttonsInner} className={btnStyles.btns__col}>
-                <button
-                  onClick={substractRep}
-                  className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}
-                >
-                  <span>substract rep</span>
-                </button>
-                <button onClick={addRep} className={`${btnStyles.btn} ${btnStyles.primaryBtn}`}>
-                  <span>add rep</span>
-                </button>
               </div>
             </div>
           </div>

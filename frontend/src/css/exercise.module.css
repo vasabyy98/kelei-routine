@@ -49,6 +49,18 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.reps__wrapper {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: center;
+}
+.exercise__reps {
+  font-family: "FormulaCondensedBold";
+  font-feature-settings: "salt" on;
+  font-size: 6rem;
+  height: 6rem;
+  justify-self: center;
+}
 @media (min-width: 1200px) {
   .exercises__wrapper {
     width: 100% !important;

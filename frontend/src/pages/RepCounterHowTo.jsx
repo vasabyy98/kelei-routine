@@ -41,7 +41,6 @@ function RepCounterHowTo() {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
             duration: 1,
           },
           "+0.25"
@@ -87,10 +86,6 @@ function RepCounterHowTo() {
                   <li>
                     Once first set is completed, set the amount of repetitions you just have done
                     using “add rep” or “substract rep” buttons.{" "}
-                  </li>
-                  <li>
-                    “Rest timer” starts as soon as you add repetition, it serves to give you insight
-                    of how long you are resting between sets.
                   </li>
                   <li>
                     When you have rested long enough to do 3-5 more repetitions, press “next set”

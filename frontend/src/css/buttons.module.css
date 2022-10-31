@@ -88,6 +88,13 @@
   flex: 1;
   transition: transform 0.3s;
 }
+.arrow__btn {
+  border-radius: 50px !important;
+  padding: 1rem 1.3rem;
+}
+.arrow__btn::after {
+  border-radius: 2.5rem !important;
+}
 .btn:hover {
   cursor: pointer;
   user-select: none;

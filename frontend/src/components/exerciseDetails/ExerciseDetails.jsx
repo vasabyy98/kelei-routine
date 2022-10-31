@@ -23,8 +23,8 @@ function ExerciseDetails({ exercise }) {
       {
         yPercent: 0,
         opacity: 1,
-        delay: 0.25,
-        stagger: 0.25,
+        delay: 0.5,
+        stagger: 0.1,
         duration: 1,
       }
     );
@@ -94,13 +94,6 @@ function ExerciseDetails({ exercise }) {
                   100
                 ).toFixed(2)}
                 <span style={{ textTransform: "uppercase" }}>%</span>
-              </span>
-            </div>
-            <div className={`${styles.exercise__inner} ${"animate__item--input"}`}>
-              <span>Average rest time:</span>
-              <span style={{ textTransform: "capitalize" }}>
-                {Math.round(exercise.restTime)}
-                <span style={{ textTransform: "uppercase" }}>sec</span>
               </span>
             </div>
           </div>

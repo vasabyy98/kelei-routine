@@ -57,21 +57,6 @@ export const deleteExercise = createAsyncThunk("exercises/delete", async (id, th
   }
 });
 
-// update exercise
-// export const updateExercise = createAsyncThunk("exercises/update", async (id, data, thunkAPI) => {
-//   try {
-//     const token = thunkAPI.getState().auth.user.token;
-//     return await exerciseService.updateExercise(id, data, token);
-//   } catch (error) {
-//     const message =
-//       (error.response && error.response.data && error.response.data.message) ||
-//       error.message ||
-//       error.toString();
-
-//     return thunkAPI.rejectWithValue(message);
-//   }
-// });
-
 export const exerciseSlice = createSlice({
   name: "exercise",
   initialState,

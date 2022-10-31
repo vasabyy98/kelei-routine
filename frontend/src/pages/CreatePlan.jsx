@@ -50,7 +50,7 @@ function CreatePlan() {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.1,
             duration: 1,
           },
           "+0.25"
@@ -64,7 +64,7 @@ function CreatePlan() {
           {
             opacity: 1,
             scale: 1,
-            stagger: 0.2,
+            stagger: 0.1,
             duration: 1,
           },
           "+0.5"
